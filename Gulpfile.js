@@ -9,17 +9,26 @@ var gulp = require('gulp'),
     header = require('gulp-header'),
     footer = require('gulp-footer'),
     jade = require('gulp-jade'),
-    bump = require('gulp-bump');
+    bump = require('gulp-bump'),
+    clean = require('gulp-clean');
 
-gulp.task('uncompressedCss', function () {
-    return gulp.src(['./src/**/*.css', '!./src/*.css'])
-        .pipe(stylus({import: '../variables.styl'}))
-        .pipe(autoprefixer())
-        .pipe(gulp.dest('./dist/uncompressed'));
+gulp.task('clean', function () {
+    return gulp.src('public', {read: false}).pipe(clean());
 });
 
-gulp.task('default', function () {
+gulp.task('uncompressedCss',['clean'], function () {
+    return gulp.src(['./src/**/*.css', './src/*.css'])
+        .pipe(autoprefixer())
+        .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('uncompressedScript',['clean'], function () {
+    return gulp.src(['./src/**/*.js', './src/*.js'])
+        .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('default',['uncompressedCss','uncompressedScript'], function () {
     return gulp.src('./view/jade/*.jade')
         .pipe(jade())
-        .pipe(gulp.dest('./public/page'));
+        .pipe(gulp.dest('./public'));
 });
