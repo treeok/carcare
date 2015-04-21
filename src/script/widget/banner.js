@@ -2,31 +2,22 @@
  * Created by NCGZ-DZ- on 2015/4/17.
  */
 define(function(){
-    var _html = '<div id="banner" class="banner" style="overflow: hidden;width: 100%;height: <%=height%>">\
-            <ul class="banner-ul" style="position: relative;height:  <%=height%>">\
+    var _html = '<div id="banner" class="banner">\
+            <div class="banner-lists">\
             <%=content%>\
-            </ul>\
+            </div>\
             </div>';
-    /*var _content = '<li style="width: 25%; background-image: url(http://www.bootcss.com/p/unslider/img/sunset.jpg); background-size: 100% 100%;">\
-        <div class="inner">\
-    <h1>The jQuery slider that just slides.</h1>\
-    <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-    <a class="btn" href="#download">下载</a>\
-    </div>\
-    </li>';
-    var _dots = '<ol class="dots"><li class="dot">1</li><li class="dot">2</li><li class="dot">3</li><li class="dot">4</li></ol>';*/
     var _banner = function(opt){
         opt = opt || {};
         this.opt = opt;
         var html = mstmpl(_html,{
             prev:opt.prev,
             content:opt.content,
-            //dots:opt.dots,
             textStyle:opt.textStyle,
-            height:opt.height||'415'
+            speed:opt.speed||'120000'
         });
         $(opt.prev).after(html);
-        this.el=$('#banner');
+        this._el=$('#banner');
         if(!opt.content){
             return false;
         }
@@ -35,38 +26,80 @@ define(function(){
     _banner.prototype = {
         init:function(){
             var _self = this;
-
+            //初始化
             this.build();
+            this._banner_list.first().addClass('active');
+            this._banner_dots.first().addClass('active');
 
-
-
-
+            this._setInterval();
+            //点击事件
+            this._banner_dots.each(function(index){
+                $(this).click(function(){
+                    //clearInterval(_self._timer);
+                    _self._show(index);
+                });
+            });
         },
-        _setTimeInterval:function(){
-
+        _setInterval:function(){
+            var _self = this,
+                timer;
+            clearInterval(_self._timer);
+            timer = setInterval(function () {
+                var _currentIndex = $(_self._banner_list).index($('.banner-list.active')),
+                    nextIndex = ++_currentIndex;
+                if (nextIndex == _self._len) {
+                    _self._show(0);
+                } else {
+                    _self._show(nextIndex);
+                }
+            }, _self.opt.speed);
+            this._timer = timer;
+        },
+        _show:function(index){
+            this._banner_list.each(function(){
+                $(this).removeClass('active');
+            });
+            this._banner_dots.each(function(){
+                $(this).removeClass('active');
+            });
+            this._banner_list.eq(index).addClass('active');
+            this._banner_dots.eq(index).addClass('active');
         },
         build:function(){
-            var banner_ul = this.el.find('.banner-ul'),
-                banner_lis,len;
-            banner_lis = banner_ul.find('>li');
-            len = banner_lis.length;
+            var banner_lists = this._el.find('.banner-lists'),
+                banner_list,banner_dots,len,maxWidth,maxHeight;
+            banner_list = banner_lists.find('>div');
+            len = banner_list.length;
+            //获取第一个匹配元素外部高度和宽度
+            maxWidth = this._el.outerWidth();
+            maxHeight = this._el.outerHeight();
+            this._banner_lists = banner_lists;
+            this._banner_list = banner_list;
             if(len==0){
                 return false;
             }
             var _dotHtml = '<ol class="dots">';
-            banner_lis.each(function(){
-                var _index = banner_lis.index(this);
-                console.log(_index);
-                console.log(this);
-                $(this).css({
-                    width:(100/len)+'%',
-                    backgroundSize:'100% 100%'
-                });
-                _index++;
-                _dotHtml += '<li class="dot">'+_index+'</li>';
+            banner_list.each(function(index){
+                var _self = $(this),
+                    width = _self.outerWidth(),
+                    height = _self.outerHeight();
+                if(width > maxWidth){
+                    maxWidth = width;
+                }
+                if(height > maxHeight){
+                    maxHeight = height;
+                }
+                _self.addClass('banner-list');
+                //_self.hide();
+                index++;
+                _dotHtml += '<li class="dot">'+index+'</li>';
             });
             _dotHtml += '</ol>';
-            banner_ul.after(_dotHtml);
+            banner_lists.after(_dotHtml);
+            this._el.css({width: maxWidth, height: banner_list.first().outerHeight(), overflow: 'hidden'});
+            banner_dots = this._el.find('.dots').find('.dot');
+            this._banner_dots = banner_dots;
+            this._len = len;
         }
     };
 
