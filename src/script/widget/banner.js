@@ -3,9 +3,9 @@
  */
 define(function(){
     var _html = '<div id="banner" class="banner">\
-            <div class="banner-lists">\
+            <ul class="banner-lists">\
             <%=content%>\
-            </div>\
+            </ul>\
             </div>';
     var _banner = function(opt){
         opt = opt || {};
@@ -14,7 +14,8 @@ define(function(){
             prev:opt.prev,
             content:opt.content,
             textStyle:opt.textStyle,
-            speed:opt.speed||'120000'
+            sliderSpeed:opt.sliderSpeed||100,
+            speed:opt.speed
         });
         $(opt.prev).after(html);
         this._el=$('#banner');
@@ -26,60 +27,57 @@ define(function(){
     _banner.prototype = {
         init:function(){
             var _self = this;
+            this._build();
             //初始化
-            this.build();
-            this._banner_list.first().addClass('active');
             this._banner_dots.first().addClass('active');
+            this._banner_ul.css({left:0});
 
-            this._setInterval();
-            //点击事件
             this._banner_dots.each(function(index){
                 $(this).click(function(){
-                    //clearInterval(_self._timer);
                     _self._show(index);
                 });
             });
+
+            this._setInterval();
         },
-        _setInterval:function(){
+        _setInterval:function(index){
             var _self = this,
                 timer;
-            clearInterval(_self._timer);
-            timer = setInterval(function () {
-                var _currentIndex = $(_self._banner_list).index($('.banner-list.active')),
+            clearInterval(this._timer);
+            timer = setInterval(function(){
+                var _currentIndex = $(_self._banner_dots).index($('.dot.active')),
                     nextIndex = ++_currentIndex;
-                if (nextIndex == _self._len) {
+                if(nextIndex == _self._len){
                     _self._show(0);
-                } else {
+                }else{
                     _self._show(nextIndex);
                 }
-            }, _self.opt.speed);
+            },_self.opt.speed);
             this._timer = timer;
         },
         _show:function(index){
-            this._banner_list.each(function(){
-                $(this).removeClass('active');
-            });
+            var _self = this;
+            this._banner_ul.animate({
+                left: -(index*100)+'%'
+            }, _self.opt.sliderSpeed);
             this._banner_dots.each(function(){
                 $(this).removeClass('active');
             });
-            this._banner_list.eq(index).addClass('active');
             this._banner_dots.eq(index).addClass('active');
         },
-        build:function(){
-            var banner_lists = this._el.find('.banner-lists'),
-                banner_list,banner_dots,len,maxWidth,maxHeight;
-            banner_list = banner_lists.find('>div');
-            len = banner_list.length;
+        _build:function(){
+            var banner_ul = this._el.find('>ul'),
+                banner_lis,banner_dots,len,maxWidth,maxHeight;
+            banner_lis = banner_ul.find('>li');
+            len = banner_lis.length;
             //获取第一个匹配元素外部高度和宽度
             maxWidth = this._el.outerWidth();
             maxHeight = this._el.outerHeight();
-            this._banner_lists = banner_lists;
-            this._banner_list = banner_list;
             if(len==0){
                 return false;
             }
             var _dotHtml = '<ol class="dots">';
-            banner_list.each(function(index){
+            banner_lis.each(function(index){
                 var _self = $(this),
                     width = _self.outerWidth(),
                     height = _self.outerHeight();
@@ -89,15 +87,16 @@ define(function(){
                 if(height > maxHeight){
                     maxHeight = height;
                 }
-                _self.addClass('banner-list');
-                //_self.hide();
+                $(_self).css({width:(100/len)+'%'});
                 index++;
                 _dotHtml += '<li class="dot">'+index+'</li>';
             });
             _dotHtml += '</ol>';
-            banner_lists.after(_dotHtml);
-            this._el.css({width: maxWidth, height: banner_list.first().outerHeight(), overflow: 'hidden'});
-            banner_dots = this._el.find('.dots').find('.dot');
+            banner_ul.after(_dotHtml);
+            banner_dots = this._el.find('.dot');
+            this._el.css({width: maxWidth, height: banner_lis.first().outerHeight(), overflow: 'hidden'});
+            banner_ul.css({width: len*100+'%',position:'relative',left:0});
+            this._banner_ul = banner_ul;
             this._banner_dots = banner_dots;
             this._len = len;
         }

@@ -13,22 +13,23 @@
     background: #5b4d3d;
     box-shadow: 0 1px 2px rgba(0,0,0,.25);
 }
-.banner .banner-lists {
-    position:relative;
-    left:0;
+.banner ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
-.banner .banner-list {
-    display: none;
+.banner ul li {
+    display: block;
+    float: left;
     min-height: 350px;
+
     -o-background-size: 100% 100%;
     -ms-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
+
     box-shadow: inset 0 -3px 6px rgba(0,0,0,.1);
-}
-.banner .banner-list.active {
-    display: block;
 }
 
 .banner .inner {
@@ -38,6 +39,7 @@
 .banner h1, .banner h2 {
     font-size: 40px;
     line-height: 52px;
+
     color: #fff;
 }
 
@@ -104,3 +106,14 @@
     opacity: 1;
 }
 
+.banner .arrows {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #fff;
+}
+.banner .arrow {
+    display: inline;
+    padding-left: 10px;
+    cursor: pointer;
+}
