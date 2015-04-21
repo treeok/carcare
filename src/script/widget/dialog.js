@@ -24,7 +24,6 @@ define(function(){
     </div>';
     var _dialog = function(opt){
         opt = opt||{};
-
         this.opt = opt;
         var _index = index++;
         var html = mstmpl(_html,{
@@ -49,7 +48,7 @@ define(function(){
         this.onshow = opt.onshow||function() {};
         this.onclose = opt.onclose|| function () {};
         this.closeBtn = $('#close_'+_index);
-        this.bind().show();
+        this.bind();
         if(!opt.notShow){
             this.show();
         }
