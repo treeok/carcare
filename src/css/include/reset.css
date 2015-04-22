@@ -182,3 +182,5 @@ td,
 th {
     padding: 0;
 }
+.clearfix:after{display:block;content:"\20";height:0;clear:both;overflow:hidden;visibility:hidden;}
+.clearfix{*zoom:1;}

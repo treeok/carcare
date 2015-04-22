@@ -34,10 +34,10 @@ define(function(){
             zIndex:zIndex++,
             textStyle:opt.textStyle,
             width:opt.width||'400',
-            notShow:opt.notShow
+            notShow:opt.notShow,
+            afterRender:opt.afterRender
         });
         $('body').append(html);
-        $('body').append('<div class="gray-bg dialog-bg" style="z-index: 100;"></div>');
         this.el = $('#dialog_'+_index);
 
         //没有底部的样式就不需要事件绑定
@@ -84,8 +84,6 @@ define(function(){
             if(!$('body').find('.dialog_bg').length){
                 $('body').append('<div class="gray-bg dialog-bg" style="z-index: 100;"></div>');
             }
-            var bodyHeight = $(document).height();
-            var windowHeight = $(window).height();
             function bgHeight(){
                 var bodyHeight = $(document).height();
                 var windowHeight = $(window).height();

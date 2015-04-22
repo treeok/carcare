@@ -2066,3 +2066,9 @@ var requirejs, require, define;
     //Set up with config info.
     req(cfg);
 }(this));
+
+var domain = location.href;
+var static_domain = 'http://localhost:63342/webNet/public';
+require.config({
+    baseUrl:static_domain+'/script'
+});
