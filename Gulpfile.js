@@ -54,15 +54,15 @@ gulp.task('img', function () {
 });
 
 gulp.task('jade2html',['css','js','img'], function () {
-    return gulp.src('./view/jade/*.jade')
+    return gulp.src(['./view/jade/*.jade','./view/jade/**/*.jade'])
         .pipe(jade({pretty:true}))
         .pipe(gulp.dest('./public'))
         .pipe(livereload());
 });
 
-gulp.task('default',['clean'], function () {
-    gulp.start('jade2html');
+gulp.task('default',['jade2html'], function () {
+    //gulp.start('jade2html');
     livereload.listen();
-    gulp.watch(['./src/**/*.js', './src/*.js','./src/**/*.css', './src/*.css','./view/jade/*.jade'],['css','js','jade2html']);
+    gulp.watch(['./src/**/*.js', './src/*.js','./src/**/*.css', './src/*.css','./view/jade/*.jade','./view/jade/**/*.jade'],['css','js','jade2html']);
 });
 

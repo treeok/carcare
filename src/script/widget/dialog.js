@@ -34,7 +34,6 @@ define(function(){
             zIndex:zIndex++,
             textStyle:opt.textStyle,
             width:opt.width||'400',
-            notShow:opt.notShow,
             afterRender:opt.afterRender
         });
         $('body').append(html);
@@ -48,22 +47,19 @@ define(function(){
         this.onshow = opt.onshow||function() {};
         this.onclose = opt.onclose|| function () {};
         this.closeBtn = $('#close_'+_index);
-        this.bind();
-        if(!opt.notShow){
-            this.show();
-        }
+        this._bind();
 
         //渲染后可以自己定义一些自定义事件
         setTimeout(function(){opt.afterRender&&opt.afterRender();},0)
     };
     _dialog.prototype ={
-        bind: function () {
+        _bind: function () {
             var _self = this;
             this.cancelBtn && this.cancelBtn.click(function () {
-                _self.hide();
+                _self._hide();
             });
             this.closeBtn.click(function () {
-                _self.hide();
+                _self._hide();
             });
             this.confirmBtn && this.confirmBtn.click(function () {
                 _self.opt.onconfirm();
@@ -80,7 +76,7 @@ define(function(){
                 left: (jqWIN.width() - this.el.width()) / 2
             });
         },
-        show: function (d) {
+        _show: function (d) {
             if(!$('body').find('.dialog_bg').length){
                 $('body').append('<div class="gray-bg dialog-bg" style="z-index: 100;"></div>');
             }
@@ -101,11 +97,11 @@ define(function(){
             this._reposition();
             this.onshow(d);
         },
-        hide: function () {
+        _hide: function () {
             this.el.hide();
             $('body').find('.dialog-bg').remove();
         },
-        close:function(){
+        _close:function(){
             this.el.remove();
             this.onclose();
             $('body').find('.dialog-bg').remove();

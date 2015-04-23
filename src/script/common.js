@@ -10,4 +10,3 @@ var mstmpl = function (str, data) {
     return _inner(str, data);
 };
 
-
