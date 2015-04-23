@@ -50,7 +50,7 @@ define(['widget/dialog','widget/utils'],function(Dialog,Utils){
                                 password2 = password2Con.val(),
                                 code = codeCon.val();
 
-
+                            //对填写信息进行验证
                             if($.trim(useName)==''){
                                 useNameCon.nextAll().hide();
                                 useNameCon.next().show();
@@ -93,7 +93,9 @@ define(['widget/dialog','widget/utils'],function(Dialog,Utils){
                             }else{
                                 codeCon.nextAll().hide();
                             }
-                            sendCodeBtn.click(function(){
+
+
+                            $('#popup_register_send_code').click(function(){
                                 alert(111);
                                 sendPhoneCode();
                             });
