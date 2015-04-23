@@ -2070,5 +2070,9 @@ var requirejs, require, define;
 var domain = location.href;
 var static_domain = 'http://localhost:63342/webNet/public';
 require.config({
-    baseUrl:static_domain+'/script'
+    baseUrl:static_domain+'/script',
+    paths: {
+        jquery: 'jquery-1.11.1'
+    }
+
 });

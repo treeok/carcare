@@ -1,7 +1,7 @@
 /**
  * Created by NCGZ-DZ- on 2015/4/17.
  */
-define(function(){
+define(['jquery'],function($){
     var _html = '<div id="banner" class="banner">\
             <ul class="banner-lists">\
             <%=content%>\

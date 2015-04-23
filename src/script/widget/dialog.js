@@ -1,7 +1,7 @@
 /**
  * Created by claire 2015/4/15.
  */
-define(function(){
+define(['jquery'],function($){
     var zIndex = 1000;
     var index = 0;
     var jqWIN = $(window);

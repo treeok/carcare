@@ -1,9 +1,13 @@
 /**
  * Created by claire on 2015/4/22.
  */
-define(function(){
+define(['jquery'],function($){
     var utils = {
         ajaxGet:function(url,param,cb){
+        if(typeof param !== 'object'){
+                cb = param;
+                param = null;
+            }
             $.get(url,param,function(data){
                 data = JSON.parse(data);
                 if(data.errFlag==0){
