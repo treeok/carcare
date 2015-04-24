@@ -43,7 +43,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('img', function () {
-    return gulp.src(['./src/**/*.png'])
+    return gulp.src(['./src/**/*.png','./src/**/*.ico'])
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],

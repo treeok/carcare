@@ -7,9 +7,10 @@ html
         link(type="text/css",rel="stylesheet",href="./css/app.css")
         link(rel="shortcut icon", type="image/ico", href="./img/favicon.ico")
         link(rel="bookmark", type="image/ico", href="./img/favicon.ico")
+        include include/loads.jade
+        script(src="./script/app.js")
     body
         include include/header.jade
-        script(src="./script/app.js")
         p hello world
         include include/footer.jade
 

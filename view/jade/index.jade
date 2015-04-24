@@ -4,12 +4,14 @@ html
       title 首页
       meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
       meta(name="viewport", content="width=device-width, initial-scale=1")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
       link(type="text/css",rel="stylesheet",href="./css/index.css")
       link(type="text/css",rel="stylesheet",href="./css/module/banner.css")
       link(rel="shortcut icon", type="image/ico", href="./img/favicon.ico")
       link(rel="bookmark", type="image/ico", href="./img/favicon.ico")
+      include include/loads.jade
+      script(src="./script/index.js")
    body
       include include/header.jade
-      script(src="./script/index.js")
       p hello world
       include include/footer.jade

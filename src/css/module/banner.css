@@ -62,18 +62,10 @@
     background: rgba(255,255,255,.05);
 }
 .banner .btn:active {
-    -webkit-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-    -moz-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-    -ms-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-    -o-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
     filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
 }
 
 .banner .btn, .banner .dot {
-    -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
     filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
 }
 
@@ -85,14 +77,15 @@
 }
 .banner .dots li {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 17px;
+    height: 17px;
+    background: url(../../img/circle.png) no-repeat;
     margin: 0 4px;
 
     text-indent: -999em;
 
-    border: 2px solid #fff;
-    border-radius: 6px;
+   /* border: 2px solid #fff;
+    border-radius: 6px;*/
 
     cursor: pointer;
     opacity: .4;
@@ -102,7 +95,8 @@
     transition: background .5s, opacity .5s;
 }
 .banner .dots li.active {
-    background: #fff;
+    background: url(../../img/circle.png) no-repeat 100%;
+    /*background: #fff;*/
     opacity: 1;
 }
 
