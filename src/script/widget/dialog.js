@@ -48,7 +48,7 @@ define(['jquery'],function($){
         this.onclose = opt.onclose|| function () {};
         this.closeBtn = $('#close_'+_index);
         this._bind();
-
+        this._show();
         //渲染后可以自己定义一些自定义事件
         setTimeout(function(){opt.afterRender&&opt.afterRender();},0)
     };

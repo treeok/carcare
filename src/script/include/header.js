@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/16.
  */
-require(['include/login','include/register'],function(Login,Register){
+/*require(['include/login','include/register'],function(Login,Register){
     Login._hide();
     Register._hide();
     $('#loginBtn').click(function () {
@@ -18,4 +18,4 @@ require(['include/login','include/register'],function(Login,Register){
         Login._hide();
         Register._show();
     });
-});
+});*/

@@ -77,9 +77,9 @@
 }
 .banner .dots li {
     display: inline-block;
-    width: 17px;
-    height: 17px;
-    background: url(../../img/circle.png) no-repeat;
+    width: 16px;
+    height: 16px;
+    background: url(../../img/circle.png) no-repeat 0 0;
     margin: 0 4px;
 
     text-indent: -999em;
@@ -95,7 +95,7 @@
     transition: background .5s, opacity .5s;
 }
 .banner .dots li.active {
-    background: url(../../img/circle.png) no-repeat 100%;
+    background: url(../../img/circle.png) no-repeat 0 100%;
     /*background: #fff;*/
     opacity: 1;
 }

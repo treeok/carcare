@@ -15,7 +15,7 @@ define(['jquery'],function($){
                 }else{
                     alert(data.errMsg);
                 }
-            },'json');
+            });
         },
         ajaxPost:function(url,param,cb){
             $.get(url,param,function(data){
