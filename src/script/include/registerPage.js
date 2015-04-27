@@ -64,6 +64,7 @@ require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                             psdCon = $('#register_password'),
                             confirmPsdCon = $('#register_confirm_password');
 
+                        $('#register_register_btn').click(function(){
                             //验证手机号
                             if(userNameCon.val()==''){
                                 userNameCon.next().show();
@@ -82,12 +83,12 @@ require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
 
                             //验证验证码
                             if(codeCon.val()==''){
-                                codeCon.next().show();
+                                codeCon.parent().next().show();
                                 return false;
                             }
                             //确定验证码是否正确
                             Utils.ajaxGet('','',function(){
-                                psdCon.next().next().show();
+                                psdCon.parent().next().next().show();
                                 return false;
                             });
 
@@ -107,22 +108,22 @@ require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
 
                             //验证通过之后，用户注册
                             Utils.ajaxJson('','',function(){
-                                $('#register_register_btn').click(function(){
-                                    singleRegister._hide();
-                                    var registerSuccess = new SinglePage({
-                                        id:'register_success',
-                                        title:'注册车挣账号',
-                                        container:$('header'),
-                                        body:_body,
-                                        afterRender:function(){
-                                            $('#register_success_index_btn').click(function () {
-                                                window.location.href = 'index.html';
-                                            });
-                                            $('#register_success_purchase_btn').click(function () {
-                                                window.location.href = 'purchase.html';
-                                            });
-                                        }});
-                                    registerSuccess._show();
+                                singleRegister._hide();
+                                var registerSuccess = new SinglePage({
+                                    id: 'register_success',
+                                    title: '注册车挣账号',
+                                    container: $('header'),
+                                    body: _body,
+                                    afterRender: function () {
+                                        $('#register_success_index_btn').click(function () {
+                                            window.location.href = 'index.html';
+                                        });
+                                        $('#register_success_purchase_btn').click(function () {
+                                            window.location.href = 'purchase.html';
+                                        });
+                                    }
+                                });
+                                registerSuccess._show();
 
                             },function(){
 

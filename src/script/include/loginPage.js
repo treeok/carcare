@@ -15,7 +15,7 @@ require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
             <small class="tips-container text-danger" style="display:none">*密码输入错误</small>\
         </div>\
         <button id="login_btn" type="submit" class="btn btn-lg btn-primary btn-block">登录</button>\
-        <a id="login_forget_pass" class="pull-right" target="_blank" href="">忘记密码？</a>\
+        <a id="login_forget_pass" class="pull-right" target="_blank" href="forgetPsd.html">忘记密码？</a>\
         <button id="login_register_btn" type="button" class="btn btn-lg btn-default btn-block">马上注册</button>\
         </div>';
 
