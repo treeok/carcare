@@ -1,0 +1,26 @@
+.contacts{
+    border: 1px solid #000000;
+}
+.contacts .container-contact{
+    padding: 0 30px;
+    margin-bottom: 30px;
+}
+.contacts hr{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+#allmap1{
+    height:500px;
+    width:100%;
+    margin-top: 15px;
+}
+.banner-store{
+    height:400px;
+    width:100%;
+    border:1px solid #000;
+    margin-bottom: 30px;
+}
+#allmap2{
+    height:400px;
+    width:100%;
+}

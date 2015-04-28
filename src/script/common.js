@@ -1,9 +1,23 @@
-/*require(['include/loginPage'],function(loginPage){
-    console.log(loginPage);
-});
+var urlArray = document.URL.split('/'),
+    docName = urlArray[urlArray.length-1].split('.')[0];
 
-require(['include/registerPage'], function (RegisterPage) {
-    console.log(RegisterPage);
-    RegisterPage._show();
-});*/
+    if(docName=='login'){
+        //login.html
+        require(['include/loginPage'], function (LoginPage) {
+
+        });
+    }else if(docName=='register'){
+        require(['include/registerPage'], function (RegisterPage) {
+
+        });
+    }else if(docName=='forgetPsd'){
+        require(['include/forgetPsdPage'], function (ForgetPsdPage) {
+
+        });
+    }
+
+
+
+
+
 

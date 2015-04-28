@@ -34,5 +34,4 @@ require(['widget/banner'],function(Banner){
         speed:12000
     });
 
-
 });

@@ -1,0 +1,35 @@
+doctype html
+html
+   head
+      title 联系我们
+      meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      link(rel="shortcut icon", type="image/ico", href="./img/favicon.ico")
+      link(rel="bookmark", type="image/ico", href="./img/favicon.ico")
+      include include/loads.jade
+      script(src="http://api.map.baidu.com/api?v=2.0&ak=5exhjUmYYCRAcoCmlgoeCGZw")
+   body
+      include include/header.jade
+      .container
+         .row.contacts
+            .container-contact
+               #allmap1
+               p 地址：上海市闸北区万荣路1188弄车挣网络科技有限公司
+               p 电话：021-60956000-8846
+            hr
+            .container-contact
+               h3 客服服务
+               p 联系电话：400-034-5858
+               p 微信公众号：小挣
+               p 邮箱：service@ichezheng.com
+            .container-contact
+               h3 商务合作
+               p 联系人：王先生
+               p 联系方式：159-XXXX-XXXX
+               p 邮箱：fei.wang@ichezheng.com
+            .container-contact
+               h3 招聘信息
+               p 邮箱：jobs@ichezheng.com
+      include include/footer.jade
+      script(src="./script/myMap.js")

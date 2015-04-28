@@ -1,0 +1,51 @@
+doctype html
+html
+   head
+      title 定点门店
+      meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      link(rel="shortcut icon", type="image/ico", href="./img/favicon.ico")
+      link(rel="bookmark", type="image/ico", href="./img/favicon.ico")
+      include include/loads.jade
+      script(src="http://api.map.baidu.com/api?v=2.0&ak=DzKqDCfgIsiIEm3rYt5YQIMF")
+   body
+      include include/header.jade
+      .container
+         .row
+            .banner-store
+            .col-md-3
+               form.form-inline
+                   .form-group
+                      select#county1.form-control
+                         option 合肥省
+                         option 河南省
+                      select#city1.form-control
+                         option 上海市
+                         option 北京市
+               .media
+                   .media-left
+                      a(href="#")
+                      | 1
+                   .media-body
+                      h4.media-heading 北城特许TD专营厅销售点
+                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+               .media
+                   .media-left
+                      a(href="#")
+                      | 2
+                   .media-body
+                      h4.media-heading 北城特许TD专营厅销售点
+                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+               .media
+                   .media-left
+                      a(href="#")
+                      | 3
+                   .media-body
+                      h4.media-heading 北城特许TD专营厅销售点
+                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+            .col-md-9
+               #allmap2
+            .clearfix
+      include include/footer.jade
+      script(src="./script/myMap.js")
