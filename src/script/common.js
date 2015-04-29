@@ -15,9 +15,3 @@ var urlArray = document.URL.split('/'),
 
         });
     }
-
-
-
-
-
-
