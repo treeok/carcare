@@ -15,11 +15,12 @@
     border-bottom: 1px solid #e6e6e6;
 }
 .single-page .form-signin-heading img{
-    width: 26px;
-    height: 26px;
+    width: 17px;
+    height: 17px;
 }
-.single-page .form-signin-heading p{
-    text-indent: 30px;
+.single-page .form-signin-heading span{
+    display: inline-block;
+    margin-left: 10px;
 }
 #login_btn{
     margin-bottom: 15px;
@@ -27,8 +28,17 @@
 #login_register_btn{
     margin-top: 15px;
 }
-/*#forgetPsd{
-    background-color: #efefef;
-}*/
+#forgetPsd label{
+    font-weight: normal;
+}
+#forgetPsd .control-content{
+    display: inline-block;
+}
+#forgetPsd .form-control{
+    display: inline-block;
+}
+
+
+
 
 

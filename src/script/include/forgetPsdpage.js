@@ -4,22 +4,29 @@
 require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
     var body = '<div id="forgetPsd" class="form-container">\
         <div class="form-group">\
-            <label for="forgetPsd_id" class="col-md-2">手机号</label>\
-            <div class="col-md-10"><input id="forgetPsd_id" type="text" placeholder="手机号" class="form-control">\
+            <label for="forgetPsd_id" class="col-sm-2 control-label">手机号</label>\
+            <div class="col-sm-10"><input id="forgetPsd_id" type="text" placeholder="手机号" class="form-control">\
             <small class="tips-container text-danger" style="display:none">*手机号不能为空</small>\
             <small class="tips-container text-danger" style="display:none">*该手机号未注册</small>\
             <small class="tips-container text-danger" style="display:none">*手机号格式不正确</small></div>\
         </div>\
         <div class="form-group">\
-            <div class="input-group">\
-                <label for="forgetPsd_code">验证码</label>\
+            <label for="forgetPsd_code" class="col-sm-2 control-label">验证码</label>\
+            <div class="col-sm-5">\
                 <input id="forgetPsd_code" type="text" placeholder="请输入收到的验证码" class="form-control">\
-                <img id="forgetPsd_code_img" src="">\
+                <small class="tips-container text-danger" style="display:none">*验证码不能为空</small>\
+                <small class="tips-container text-danger" style="display:none">*验证码不正确</small>\
             </div>\
-            <small class="tips-container text-danger" style="display:none">*验证码不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*验证码不正确</small>\
+            <div class="col-sm-5">\
+                <img id="forgetPsd_code_img" src="http://10.8.6.127:8080/carcare-web-homesite/code.html">\
+                <button id="forgetPsd_code_img_change" type="button" class="btn btn-link">看不清？换一张</button>\
+            </div>\
         </div>\
-        <button id="forgetPsd_btn_1" type="button" class="btn btn-primary btn-block">下一步</button>\
+        <div class="form-group">\
+            <div class="col-sm-offset-2 col-sm-10">\
+               <button id="forgetPsd_btn_1" type="button" class="btn btn-primary">下一步</button>\
+            </div>\
+        </div>\
         </div>';
 
     var _body1 = '<div id="registerSucStep1" class="form-container">\
@@ -83,8 +90,14 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                             imgCon = $('#forgetPsd_code_img');
 
                         //获取验证码的图片 接口
-                        imgCon[0].src = '';
+                        imgCon[0].src = '/car/code.html';
 
+                        $('#forgetPsd_code_img_change').click(function(){
+                            console.log(Utils);
+                            Utils.ajaxGet('/car/code.html',function(){
+                                imgCon[0].src = '/car/code.html';
+                            });
+                        });
 
                         $('#forgetPsd_btn_1').click(function () {
                             //验证手机号
