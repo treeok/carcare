@@ -3,9 +3,7 @@ var urlArray = document.URL.split('/'),
 
     if(docName=='login'){
         //login.html
-        require(['include/loginPage'], function (LoginPage) {
 
-        });
     }else if(docName=='register'){
         require(['include/registerPage'], function (RegisterPage) {
 
