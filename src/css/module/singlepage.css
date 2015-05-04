@@ -1,17 +1,25 @@
 .single-page{
-    position: relative;
-    margin: 0 auto;
-
-    border: 1px solid #000000;
+    background-color: #efefef;
+}
+.single-page .container form{
+    border: 1px solid #ababab;
+    margin: 80px auto 180px;
+    background-color: #ffffff;
 }
 
-.single-page h3{
+.single-page .form-signin-heading{
     margin: 0;
     padding: 0;
     height: 50px;
     line-height: 50px;
-
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #e6e6e6;
+}
+.single-page .form-signin-heading img{
+    width: 26px;
+    height: 26px;
+}
+.single-page .form-signin-heading p{
+    text-indent: 30px;
 }
 #login_btn{
     margin-bottom: 15px;
@@ -19,3 +27,8 @@
 #login_register_btn{
     margin-top: 15px;
 }
+/*#forgetPsd{
+    background-color: #efefef;
+}*/
+
+

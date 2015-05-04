@@ -3,22 +3,23 @@
  */
 require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
     var body = '<div id="forgetPsd" class="form-container">\
-        <small>请输入您注册车挣时，输入的手机号码：</small>\
         <div class="form-group">\
-            <input id="forgetPsd_id" type="text" placeholder="手机号" class="form-control">\
+            <label for="forgetPsd_id" class="col-md-2">手机号</label>\
+            <div class="col-md-10"><input id="forgetPsd_id" type="text" placeholder="手机号" class="form-control">\
             <small class="tips-container text-danger" style="display:none">*手机号不能为空</small>\
             <small class="tips-container text-danger" style="display:none">*该手机号未注册</small>\
-            <small class="tips-container text-danger" style="display:none">*手机号格式不正确</small>\
+            <small class="tips-container text-danger" style="display:none">*手机号格式不正确</small></div>\
         </div>\
         <div class="form-group">\
             <div class="input-group">\
+                <label for="forgetPsd_code">验证码</label>\
                 <input id="forgetPsd_code" type="text" placeholder="请输入收到的验证码" class="form-control">\
                 <img id="forgetPsd_code_img" src="">\
             </div>\
             <small class="tips-container text-danger" style="display:none">*验证码不能为空</small>\
             <small class="tips-container text-danger" style="display:none">*验证码不正确</small>\
         </div>\
-        <button id="forgetPsd_btn_1" type="button" class="btn btn-lg btn-primary btn-block">下一步</button>\
+        <button id="forgetPsd_btn_1" type="button" class="btn btn-primary btn-block">下一步</button>\
         </div>';
 
     var _body1 = '<div id="registerSucStep1" class="form-container">\
@@ -67,7 +68,7 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
             } else {
                 singlePsdPage = new SinglePage({
                     id: 'forgetPsd',
-                    title: '重置密码',
+                    title: '请输入您注册车挣时，输入的手机号：',
                     container: $('header'),
                     body: body,
                     afterRender: function () {

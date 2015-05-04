@@ -2,19 +2,23 @@
  * Created by Claire on 2015/4/27.
  */
 define(['jquery'],function($){
-    var _html = '<div id="<%=id%>" class="container single-page" style="width: <%=width%>px;">\
+    var index = 0;
+    var _html = '<div id="singlePage_<%=index%>" class="single-page">\
+     <div class="container">\
      <form action="#" role="form" class="form-<%=id%>"  style="padding: 0 15px;">\
-     <h3 class="form-signin-heading text-center"><%=title%></h3>\
-      <div style="padding:75px <%=(width/4)%>px"><%=body%></div>\
-		</form>\
-    </div>';
+        <div class="form-signin-heading text-left"><img src="img/tip.png"><span><%=title%></span></div>\
+        <div style="padding:40px <%=(width/4)%>px"><%=body%></div>\
+	 </form>\
+     </div></div>';
     var _singlePage = function(opt){
         opt = opt||{};
+        var _index = index++;
         this.opt = opt;
         var html = mstmpl(_html,{
             id:opt.id,
             title:opt.title,
             body:opt.body||'',
+            index:_index,
             width:opt.width||'800',
             container:opt.container,
             afterRender:opt.afterRender
