@@ -30,40 +30,52 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
         </div>';
 
     var _body1 = '<div id="registerSucStep1" class="form-container">\
-        <small id="registerSucStep1_tel_holder"></small>\
         <div class="form-group">\
-            <div class="input-group">\
+            <label for="registerSucStep1_code" class="col-sm-2 control-label">手机验证码</label>\
+            <div class="col-sm-10"><div class="input-group">\
                 <input id="registerSucStep1_code" type="text" placeholder="请输入收到的验证码" class="form-control">\
                 <a id="send_registerSucStep1_code" href="#" class="input-group-addon btn btn-primary active" role="button">获取验证码</a>\
             </div>\
             <small class="tips-container text-danger" style="display:none">*验证码不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*验证码不正确</small>\
+            <small class="tips-container text-danger" style="display:none">*验证码不正确</small></div>\
         </div>\
-        <button id="forgetPsd_btn_2" type="button" class="btn btn-lg btn-primary btn-block">下一步</button>\
+        <div class="form-group">\
+            <div class="col-sm-offset-2 col-sm-10">\
+                 <button id="forgetPsd_btn_2" type="button" class="btn btn-primary">下一步</button>\
+            </div>\
+        </div>\
         </div>';
 
     var _body2 = '<div id="registerSucStep2" class="form-container">\
-        <small>请重新设置你的密码：</small>\
        <div class="form-group">\
-            <input id="registerSucStep2_password" type="password" placeholder="请输入密码" class="form-control">\
-            <small>密码长度8~16位，数字、字母、字符至少包含两种</small>\
-            <small class="tips-container text-danger" style="display:none">*密码不能为空</small>\
+            <label for="registerSucStep2_password" class="col-sm-2 control-label">新密码</label>\
+            <div class="col-sm-10"><input id="registerSucStep2_password" type="password" placeholder="请输入密码" class="form-control">\
+            <small class="tips-container text-danger" style="display:none">*密码不能为空</small></div>\
         </div>\
         <div class="form-group">\
-            <input id="registerSucStep2_confirm_password" type="password" placeholder="请输入确认密码" class="form-control">\
+            <label for="registerSucStep2_confirm_password" class="col-sm-2 control-label">确认密码</label>\
+            <div class="col-sm-10"><input id="registerSucStep2_confirm_password" type="password" placeholder="请输入确认密码" class="form-control">\
             <small class="tips-container text-danger" style="display:none">*确认密码不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*两次输入密码不相同</small>\
+            <small class="tips-container text-danger" style="display:none">*两次输入密码不相同</small></div>\
         </div>\
-        <button id="forgetPsd_btn_3" type="button" class="btn btn-lg btn-primary btn-block">确定</button>\
-        <small>密码长度8~16位，数字、字母、字符至少包含两种</small>\
+        <div class="form-group">\
+            <div class="col-sm-offset-2 col-sm-10">\
+                 <small>密码长度8~16位，数字、字母、字符至少包含两种</small>\
+            </div>\
+        </div>\
+        <div class="form-group">\
+            <div class="col-sm-offset-2 col-sm-10">\
+                 <button id="forgetPsd_btn_3" type="button" class="btn btn-primary">确定</button>\
+            </div>\
+        </div>\
         </div>';
 
     var _body3 = '<div id="registerSucStep3" class="form-container">\
         <div class="form-group">\
-            <img src="" alt="" class="img-rounded">\
-            <div>密码重置成功！</div>\
+            <img src="img/ok.png" class="img-rounded">\
+            <span>密码重置成功！</span>\
+            <button id="forgetPsd_btn_4" type="button" class="btn btn-primary">重新登录</button>\
         </div>\
-        <button id="forgetPsd_btn_4" type="button" class="btn btn-lg btn-primary btn-block">重新登录</button>\
         </div>';
 
     var singlePsdPage;
@@ -130,15 +142,14 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
 
                             //验证通过之后，下一步1
                             Utils.ajaxJson('', '', function () {
-                                singlePsdPage._hide();
+                                $('#forgetPsd').parent().parent().hide();
                                 var registerSuccessStep1 = new SinglePage({
                                     id: 'register_success_step1',
-                                    title: '重置密码',
+                                    title: '已经短信验证码发送至'+userNameCon.val(),
                                     container: $('header'),
                                     body: _body1,
                                     afterRender: function () {
                                         var _self = this;
-                                        $('#registerSucStep1_tel_holder').text('已将短信发送至' + userNameCon.val());
                                         $('#registerSucStep1').on('focus', 'input', function () {
                                             $('#registerSucStep1').find('.tips-container').hide();
                                             $('#registerSucStep1').find('.form-group').removeClass('has-error');
@@ -160,10 +171,10 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
 
                                             //验证通过之后，下一步2
                                             Utils.ajaxJson('', '', function () {
-                                                registerSuccessStep1._hide();
+                                                $('#registerSucStep1').parent().parent().hide();
                                                 var registerSuccessStep2 = new SinglePage({
                                                     id: 'register_success_step2',
-                                                    title: '重置密码',
+                                                    title: '请重新设置你的密码',
                                                     container: $('header'),
                                                     body: _body2,
                                                     afterRender: function () {
@@ -190,10 +201,10 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                                                 return false;
                                                             }
                                                             Utils.ajaxJson('', '', function () {
-                                                                registerSuccessStep2._hide();
+                                                                $('#registerSucStep2').parent().parent().hide();
                                                                 var registerSuccessStep3 = new SinglePage({
                                                                     id: 'register_success_step2',
-                                                                    title: '重置密码',
+                                                                    title: '提示',
                                                                     container: $('header'),
                                                                     body: _body3,
                                                                     afterRender: function () {
@@ -202,22 +213,18 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                                                         });
                                                                     }
                                                                 });
-                                                                registerSuccessStep3._hide();
                                                             }, function () {
 
                                                             });
                                                         });
                                                     }
                                                 });
-                                                registerSuccessStep2._show();
 
                                             }, function () {
                                             });
                                         });
                                     }
                                 });
-                                registerSuccessStep1._show();
-
                             }, function () {
 
                             });

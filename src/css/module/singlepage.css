@@ -28,7 +28,7 @@
 #login_register_btn{
     margin-top: 15px;
 }
-#forgetPsd label{
+#forgetPsd label,#registerSucStep1 label,#registerSucStep2 label{
     font-weight: normal;
 }
 #forgetPsd .control-content{

@@ -38,6 +38,8 @@ define(['jquery'],function($){
             });
 
         }
-    }
+    };
+
+    return utils;
 
 });

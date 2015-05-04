@@ -2068,7 +2068,7 @@ var requirejs, require, define;
 }(this));
 
 var domain = location.href;
-var static_domain = 'http://localhost:63342/webNet/public';
+var static_domain = 'http://localhost:63342/carcare/public';
 require.config({
     baseUrl:static_domain+'/script',
     paths: {

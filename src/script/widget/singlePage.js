@@ -5,7 +5,7 @@ define(['jquery'],function($){
     var index = 0;
     var _html = '<div id="singlePage_<%=index%>" class="single-page">\
      <div class="container">\
-     <form action="#" role="form" class="form-<%=id%>"  style="padding: 0 15px;">\
+     <form action="#" role="form" class="form-<%=id%> form-horizontal"  style="padding: 0 15px;">\
         <div class="form-signin-heading text-left"><img src="img/tip.png"><span><%=title%></span></div>\
         <div style="padding:40px <%=(width/4)%>px"><%=body%></div>\
 	 </form>\
