@@ -9,22 +9,13 @@ define(['jquery'],function($){
                 param = null;
             }
             $.get(url,param,function(data){
-                data = JSON.parse(data);
-                if(data.errFlag==0){
-                    cb&&cb();
-                }else{
-                    alert(data.errMsg);
-                }
+                cb&&cb();
+
             });
         },
         ajaxPost:function(url,param,cb){
-            $.get(url,param,function(data){
-                data = JSON.parse(data);
-                if(data.errFlag==0){
-                    cb&&cb();
-                }else{
-                    alert(data.errMsg);
-                }
+            $.post(url,param,function(data){
+                cb&&cb();
             });
         },
         ajaxJson:function(url,param,cb,errCb){
@@ -37,6 +28,14 @@ define(['jquery'],function($){
                 error: errCb&&errCb()
             });
 
+        },
+        telRegx:function(str){
+            var reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+            return str.match(reg);
+        },
+        psdRegx:function(str){
+            var reg = /^(?![a-z]+$)(?![A-Z]+$)(?![0-9]+$)[0-9a-zA-Z\W]\S{6,18}$/;
+            return str.match(reg);
         }
     };
 

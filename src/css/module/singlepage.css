@@ -22,13 +22,8 @@
     display: inline-block;
     margin-left: 10px;
 }
-#login_btn{
-    margin-bottom: 15px;
-}
-#login_register_btn{
-    margin-top: 15px;
-}
-#forgetPsd label,#registerSucStep1 label,#registerSucStep2 label{
+
+#forgetPsd label,#registerSucStep1 label,#registerSucStep2 label,#register label{
     font-weight: normal;
 }
 #forgetPsd .control-content{

@@ -94,7 +94,7 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                         var _self = this;
                         $('#forgetPsd').on('focus', 'input', function () {
                             $('#forgetPsd').find('.tips-container').hide();
-                            $('#forgetPsd').find('.form-group').removeClass('has-error');
+                            $('#forgetPsd').find('.col-sm-10').removeClass('has-error');
                         });
 
                         var userNameCon = $('#forgetPsd_id'),
@@ -120,13 +120,9 @@ require(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                             }
                             if (!userNameCon.val().match(/^1[3|4|5|7|8][0-9]\d{8}$/)) {
                                 userNameCon.next().next().next().show();
+                                userNameCon.parent().addClass('has-error');
                                 return false;
                             }
-                            //确定手机号是否存在，不存在的话，说明手机号不存在
-                            Utils.ajaxGet('', '', function () {
-                                userNameCon.next().next().show();
-                                return false;
-                            });
 
                             //验证验证码
                             if (codeCon.val() == '') {
