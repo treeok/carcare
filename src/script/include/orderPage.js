@@ -1,48 +1,107 @@
 /**
  * Created by claire on 2015/4/27.
  */
-require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
-    var body = '<div id="register" class="form-container">\
-        <div class="form-group">\
-            <label for="register_id" class="col-sm-2 control-label">手机号</label>\
-            <div class="col-sm-10"><input id="register_id" type="text" placeholder="请输入手机号码" class="form-control">\
-            <small class="tips-container text-danger" style="display:none">*手机号不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*该手机号已注册</small>\
-            <small class="tips-container text-danger" style="display:none">*手机号格式不正确</small></div>\
-        </div>\
-        <div class="form-group">\
-            <label for="register_code" class="col-sm-2 control-label">验证码</label>\
-            <div class="col-sm-10"><div class="input-group">\
-                <input id="register_code" type="text" placeholder="请输入收到的验证码" class="form-control">\
-                <a id="send_register_code" href="#" class="input-group-addon btn btn-primary active" type="button">获取验证码</a>\
+require(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,Utils,Dialog){
+    var body = '<div id="orderInfo" class="form-container">\
+        <div class="orderInfo-group" style="margin-bottom: 10px;">\
+            <div class="orderInfo-title">收货地址</div>\
+            <div class="orderInfo-body">\
+               <div class="radio selected">\
+                  <label class="orderInfo-address">\
+                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> 史星 上海市万荣路1188弄\
+                  </label>\
+                  <button type="button" class="btn btn-link">编辑</button>\
+                  <button type="button" class="btn btn-link">删除</button>\
+               </div>\
             </div>\
-            <small class="tips-container text-danger" style="display:none">*验证码不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*验证码不正确</small>\
-            <small class="tips-container text-danger" style="display:none">*验证码失效</small></div>\
+            <button id="orderInfo-address-add" type="button" class="btn btn-link">+新增收货地址</button>\
         </div>\
-        <div class="form-group">\
-            <label for="register_password" class="col-sm-2 control-label">请输入密码</label>\
-            <div class="col-sm-10"><input id="register_password" type="password" placeholder="请输入密码" class="form-control">\
-            <small class="tips-container text-danger" style="display:none;">密码长度8~16位，数字、字母、字符至少包含两种</small>\
-            <small class="tips-container text-danger" style="display:none;">*密码不能为空</small></div>\
-        </div>\
-        <div class="form-group">\
-            <label for="register_confirm_password" class="col-sm-2 control-label">确认密码</label>\
-            <div class="col-sm-10"><input id="register_confirm_password" type="password" placeholder="请输入确认密码" class="form-control">\
-            <small class="tips-container text-danger" style="display:none">*确认密码不能为空</small>\
-            <small class="tips-container text-danger" style="display:none">*两次输入密码不相同</small></div>\
-        </div>\
-        <div class="form-group">\
-            <div class="col-sm-offset-2 col-sm-10">\
-                 <button id="register_register_btn" type="button" class="btn btn-primary">马上注册</button>\
+        <div class="orderInfo-group">\
+            <div class="orderInfo-title">支付方式</div>\
+            <div class="orderInfo-body">\
+               <img src="img/alipay.png" />\
             </div>\
         </div>\
-        <div class="form-group">\
-            <div class="col-sm-offset-2 col-sm-10">\
-                 <small>点击“立即注册”，即表示您同意并愿意遵守车挣用户协议 和隐私政策</small>\
+        <div class="orderInfo-group">\
+            <div class="orderInfo-title">运送方式</div>\
+            <div class="orderInfo-body">\
+               <img src="img/delivery.png" />\
             </div>\
+        </div>\
+        <div class="orderInfo-group">\
+            <div class="orderInfo-title">商品信息</div>\
+            <div class="orderInfo-body">\
+               <table class="table"><thead style="background-color: #1e60ae;color: #fff;font-weight: normal;">\
+               <th>商品名称</th><th>单价</th><th>数量</th>\
+               </thead>\
+               <tbody><tr><td style="width: 60%;">\
+               <div class="media" style="margin: 15px 0;">\
+                 <div class="media-left">\
+                   <a href="#">\
+                     <img class="media-object" src="img/box.png">\
+                   </a>\
+                 </div>\
+               <div class="media-body">\
+               <h4 class="media-heading">车挣盒子标准版</h4>\
+               适用于除法系车和韩系车以外的所有车型\
+               </div></div></td>\
+               <td style="width: 20%;color: red;">￥297.00</td>\
+               <td style="width: 20%;">1</td>\
+               </tr>\
+               </tbody>\
+               </table>\
+            </div>\
+        </div><hr>\
+        <div class="orderInfo-group" style="background-color: #f1f1f1;height: 90px;">\
+            <div class="pull-right">\
+            <table style="margin: 10px 30px;">\
+            <tr><th style="width: 80px;text-align: left;height: 20px;">单价</th><td style="width: 80px;text-align: right;">￥297.00</td></tr>\
+            <tr><th style="width: 80px;text-align: left;height: 20px;">运费</th><td style="width: 80px;text-align: right;">￥0.00</td></tr>\
+            <tr><th style="width: 80px;text-align: left;height: 20px;">总价</th><td style="width: 80px;text-align: right;">￥297.00</td></tr>\
+            </table></div>\
+        </div>\
+         <div class="orderInfo-group" style="background-color: #e7e7e7;height: 50px;">\
+            <div class="pull-right" style="margin: 5px 0;">\
+            <span style="display: inline-block;margin-right: 10px;">应付金额：<span style="color: red;font-size: 20px;height: 34px;display: inline-block;margin-right: 10px;">￥297.00</span></span><button type="button" class="btn btn-primary">提交订单</button></div>\
         </div>\
         </div>';
+
+    var dlgBody = '<div id="address_dlg" class="form-container">\
+        <div class="form-group">\
+            <label for="address_dlg_id" class="col-sm-2 control-label">收货人</label>\
+            <div class="col-sm-10" style="margin-bottom: 15px;"><input id="address_dlg_id" type="text" placeholder="请输入收货人姓名" class="form-control">\
+            <small class="tips-container text-danger" style="display:none">*收货人不能为空</small></div>\
+        </div>\
+        <div class="form-group">\
+            <label for="address_dlg_tel" class="col-sm-2 control-label">手机号码</label>\
+            <div class="col-sm-10" style="margin-bottom: 15px;">\
+                <input id="address_dlg_tel" type="text" placeholder="请输入手机号码" class="form-control">\
+                <small class="tips-container text-danger" style="display:none">*手机号码不能为空</small>\
+                <small class="tips-container text-danger" style="display:none">*手机号码格式不正确</small>\
+            </div>\
+        </div>\
+        <div class="form-group">\
+            <label for="address_dlg_psd" class="col-sm-2 control-label">收货地址</label>\
+            <div class="col-sm-10" style="margin-bottom: 15px;">\
+            <select id="province"></select>\
+            <select id="city"></select>\
+            <select id="county"></select>\
+            </div>\
+        </div>\
+        <div class="form-group">\
+            <label for="address_dlg_detail" class="col-sm-2 control-label">详细信息</label>\
+            <div class="col-sm-10" style="margin-bottom: 15px;"><input id="address_dlg_detail" type="password" class="form-control">\
+            <small class="tips-container text-danger" style="display:none">*详细信息不能为空</small></div>\
+        </div>\
+        </div>';
+
+    var dlgBottom = '<div class="form-group">\
+            <div class="col-sm-offset-2 col-sm-10" style="margin-bottom: 15px;">\
+                 <button id="address_dlg_save" type="button" class="btn btn-primary">保存</button>\
+                 <button id="address_dlg_cancel" type="button" class="btn btn-default">取消</button>\
+            </div>\
+        </div>';
+
 
     var _body = '<div id="registerSuc" class="form-container">\
         <div class="form-group">\
@@ -62,136 +121,88 @@ require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
             }else{
                 singleRegister = new SinglePage({
                     id:'register',
-                    title:'注册车挣账号',
+                    title:'填写订单信息',
                     container:$('header'),
                     body:body,
                     afterRender:function(){
                         var _self = this;
-                        $('#register').on('focus','input',function(){
-                            $('#register').find('.tips-container').hide();
-                            $('#register').find('.col-sm-10').removeClass('has-error');
+                        $('#orderInfo').parent().css({padding: 0});
+                        $('#orderInfo').parent().parent().parent().parent().css({backgroundColor: '#fff'});
+                        $('#orderInfo').parent().parent().css({margin: '20px auto'});
+
+                        $('#orderInfo-address-add').click(function(){
+                            newDialog._show();
                         });
 
-                        var userNameCon = $('#register_id'),
-                            codeCon = $('#register_code'),
-                            psdCon = $('#register_password'),
-                            confirmPsdCon = $('#register_confirm_password');
+                        var newDialog = new Dialog({
+                            title: '收货信息',
+                            body: dlgBody,
+                            bottom: dlgBottom,
+                            width: '600',
+                            afterRender: function(){
+                                $('#address_dlg').on('focus','input',function(){
+                                    $('#address_dlg').find('.tips-container').hide();
+                                    $('#address_dlg').find('.col-sm-10').removeClass('has-error');
+                                });
 
-                        $('#send_register_code').click(function(){
-                            sendPhoneCode();
-                        });
+                                var userNameCon = $('#address_dlg_id'),
+                                    telCon = $('#address_dlg_tel'),
+                                    psdCon = $('#address_dlg_psd'),
+                                    detailCon = $('#address_dlg_detail');
 
-                        $('#register_register_btn').click(function(){
-                            //验证手机号
-                            if(userNameCon.val()==''){
-                                userNameCon.next().show();
-                                userNameCon.parent().addClass('has-error');
-                                return false;
-                            }
-                            if(!Utils.telRegx(userNameCon.val())){
-                                userNameCon.next().next().next().show();
-                                return false;
-                            }
+                                buildSelect(1,0,'province');
+                                buildSelect(2,0,'city');
+                                buildSelect(3,0,'county');
 
-                            //验证验证码
-                            if(codeCon.val()==''){
-                                codeCon.parent().next().show();
-                                return false;
-                            }
 
-                            //验证密码
-                            if(psdCon.val()==''){
-                                psdCon.next().next().show();
-                                return false;
-                            }
-                            if(!Utils.telRegx(psdCon.val())){
-                                psdCon.next().show();
-                                return false;
-                            }
-                            if(confirmPsdCon.val()==''){
-                                confirmPsdCon.next().show();
-                                return false;
-                            }
-                            if(psdCon.val()!=confirmPsdCon.val()){
-                                confirmPsdCon.next().next().show();
-                                return false;
-                            }
+                                $('#address_dlg_save').click(function(){
+                                    if(userNameCon.val() == ''){
+                                        userNameCon.next().show();
+                                        userNameCon.parent().addClass('has-error');
+                                        return false;
+                                    }
+                                    if(telCon.val() == ''){
+                                        telCon.next().show();
+                                        telCon.parent().addClass('has-error');
+                                        return false;
+                                    }
+                                    if(!Utils.telRegx(telCon.val())){
+                                        telCon.next().next().show();
+                                        telCon.parent().addClass('has-error');
+                                        return false;
+                                    }
+                                    if(detailCon.val() == ''){
+                                        detailCon.next().show();
+                                        detailCon.parent().addClass('has-error');
+                                        return false;
+                                    }
 
-                            var params = {
-                                tel: userNameCon.val(),
-                                password: psdCon.val(),
-                                code: codeCon.val()
-                            };
-                            //验证通过之后，用户注册
-                            Utils.ajaxPost('http://10.8.6.127:8080/carcare/member/register.html',params,function(data){
-                                data = JSON.parse(data);
-                                if(data.errFlag == 0){
-                                    $('#register').parent().parent().hide();
-                                    var registerSuccess = new SinglePage({
-                                        id: 'register_success',
-                                        title: '注册车挣账号',
-                                        container: $('header'),
-                                        body: _body,
-                                        afterRender: function () {
-                                            $('#register_success_index_btn').click(function () {
-                                                window.location.href = 'index.html';
-                                            });
-                                            $('#register_success_purchase_btn').click(function () {
-                                                window.location.href = 'purchase.html';
-                                            });
+                                    var params = {};
+
+                                    Utils.ajaxJson('',params,function(){
+
+                                    });
+
+
+                                });
+
+                                function buildSelect(levelId,id,contentId){
+                                    Utils.ajaxJson('http://10.8.6.127:8080/carcare/address/getCity',{levelId:levelId,id:id},function(data){
+                                        data = JSON.parse(data);
+                                        if(data.errFlag == 1){
+                                            var html = '';
+                                            /*for(){
+                                                html
+                                            }*/
+                                            $('#'+contentId).append(html);
                                         }
                                     });
-                                }else if(data.errFlag == -1){
-                                    userNameCon.next().next().show();
-                                    return false;
-                                }else if(data.errFlag == -2){
-                                    psdCon.parent().next().next().show();
-                                    return false;
-                                }else if(data.errFlag == -3){
-                                    psdCon.parent().next().next().next().show();
-                                    return false;
                                 }
-                            });
 
+
+                            }
                         });
-
-                        function sendPhoneCode(){
-                            if(userNameCon.val()==''){
-                                userNameCon.next().show();
-                                userNameCon.parent().addClass('has-error');
-                                return false;
-                            }
-                            if(!userNameCon.val().match(/^1[3|4|5|7|8][0-9]\d{8}$/)){
-                                userNameCon.next().next().next().show();
-                                return false;
-                            }
-                            $("#send_register_code").attr('disabled',true);
-                            $("#send_register_code").text('60秒后点击再次发送');
-
-                            var i =60;
-                            var f=setInterval(function(){
-
-                                $("#send_register_code").text(i+'秒后点击再次发送');
-                                i--;
-                                if(i=='0'){
-                                    clearInterval(f);
-                                    $("#send_register_code").attr('disabled',false);
-                                    $("#send_register_code").text('获取验证码');
-                                }
-                            },1000);
-
-                            $.ajax({
-                                url:"http://10.8.6.13:8080/carcare/member/sendCode.html",
-                                type:"post",
-                                datatype:"html",
-                                data:{"tel":userNameCon.val()},
-                                success:function(data){
-                                    if(data.errFlag==0){
-                                        alert(data.errMsg);
-                                    }
-                                }
-                            });
-                        }
+                        newDialog._hide();
                     }
                 });
             }

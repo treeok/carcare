@@ -5,7 +5,7 @@ define(['jquery'],function($){
     var zIndex = 1000;
     var index = 0;
     var jqWIN = $(window);
-    var _html = '<div id="dialog_<%=index%>" class="dialog" style="margin:0;display:none;z-index:<%=zIndex%>">\
+    var _html = '<div id="dialog_<%=index%>" class="dialog" style="margin:0;display:none;z-index:<%=zIndex%>;width:<%=width%>px;">\
       <div class="dialog-head">\
         <%if(title){%><p class="dia-title"><%=title%></p><% } %>\
         <em class="close-ico" id="close_<%=index%>">X</em>\

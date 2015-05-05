@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-require(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
+define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
     var body = '<div id="register" class="form-container">\
         <div class="form-group">\
             <label for="register_id" class="col-sm-2 control-label">手机号</label>\

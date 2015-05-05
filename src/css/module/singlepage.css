@@ -33,6 +33,33 @@
     display: inline-block;
 }
 
+#orderInfo .orderInfo-group{
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+#orderInfo .orderInfo-title{
+    margin: 15px 0;
+}
+#orderInfo .radio.selected{
+    background-color: #fff0e8;
+    border: 1px solid #f50;
+}
+#orderInfo .orderInfo-address{
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    vertical-align: middle;
+}
+#orderInfo .orderInfo-address input{
+    display: inline-block;
+    height: 27px;
+    line-height: 34px;
+}
+#orderInfo table thead th,#orderInfo table tbody td{
+    text-align: center;
+}
+
+
 
 
 

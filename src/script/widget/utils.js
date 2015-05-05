@@ -9,13 +9,13 @@ define(['jquery'],function($){
                 param = null;
             }
             $.get(url,param,function(data){
-                cb&&cb();
+                cb&&cb(data);
 
             });
         },
         ajaxPost:function(url,param,cb){
             $.post(url,param,function(data){
-                cb&&cb();
+                cb&&cb(data);
             });
         },
         ajaxJson:function(url,param,cb,errCb){

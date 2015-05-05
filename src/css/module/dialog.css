@@ -2,7 +2,7 @@
 .dialog{width: 460px; border-radius: 10px; min-height: 200px; _height:200px; border: 1px solid #ddd; position: absolute; top:200px; left: 50%; margin-left: -230px; background: #fefefe;
     box-shadow: 0 0 10px #333;}
 .dialog-head{position: relative; padding: 10px; border-bottom: 2px solid #f4f4f4; height: 40px;}
-.dia-title{font-size: 16px; font-weight: bold; line-height: 1.5; color: #ff7e00;}
+.dia-title{font-size: 16px; font-weight: bold; line-height: 1.5; color: #000;}
 .close-ico{position: absolute; top:13px; right: 10px; color: #ff7e00; font-weight: bold; cursor: pointer;
     height: 16px; width: 16px; background: url(../../img/close-ico.png) 0 0 no-repeat; text-indent: -100px; overflow: hidden;}
 .close-ico:hover{background-position: 0 -20px;}
@@ -30,3 +30,17 @@
 .register-container .big-btn{padding:0 40px;}
 .footer{color: #999; font-size: 12px; background: #fff; padding: 20px 0; width:960px; height:auto; margin:0 auto;}
 .footer a{color: #999;}
+
+/*地址弹出框*/
+#address_dlg label{
+    font-weight: normal;
+}
+.dialog-head{
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin: 15px 30px 0;
+    text-align: center;
+}
