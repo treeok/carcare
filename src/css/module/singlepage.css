@@ -58,6 +58,14 @@
 #orderInfo table thead th,#orderInfo table tbody td{
     text-align: center;
 }
+#purchase img{
+    margin: 15px;
+    cursor: pointer;
+}
+#purchase img.active{
+    border: 1px solid red;
+}
+
 
 
 

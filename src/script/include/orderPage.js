@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-require(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,Utils,Dialog){
+define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,Utils,Dialog){
     var body = '<div id="orderInfo" class="form-container">\
         <div class="orderInfo-group" style="margin-bottom: 10px;">\
             <div class="orderInfo-title">收货地址</div>\

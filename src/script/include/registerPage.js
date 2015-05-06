@@ -104,7 +104,7 @@ define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                                 psdCon.next().next().show();
                                 return false;
                             }
-                            if(!Utils.telRegx(psdCon.val())){
+                            if(!Utils.psdRegx(psdCon.val())){
                                 psdCon.next().show();
                                 return false;
                             }
@@ -123,7 +123,7 @@ define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                                 code: codeCon.val()
                             };
                             //验证通过之后，用户注册
-                            Utils.ajaxPost('http://10.8.6.127:8080/carcare/member/register.html',params,function(data){
+                            Utils.ajaxJson(rootUrl+'/member/register',params,function(data){
                                 data = JSON.parse(data);
                                 if(data.errFlag == 0){
                                     $('#register').parent().parent().hide();
@@ -134,10 +134,10 @@ define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                                         body: _body,
                                         afterRender: function () {
                                             $('#register_success_index_btn').click(function () {
-                                                window.location.href = 'index.html';
+                                                window.location.href = rootUrl+'/member/index.html';
                                             });
                                             $('#register_success_purchase_btn').click(function () {
-                                                window.location.href = 'purchase.html';
+                                                window.location.href = rootUrl+'/member/purchase.html';
                                             });
                                         }
                                     });
@@ -181,7 +181,7 @@ define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                             },1000);
 
                             $.ajax({
-                                url:"http://10.8.6.13:8080/carcare/member/sendCode.html",
+                                url: rootUrl+'/member/sendCode.html',
                                 type:"post",
                                 datatype:"html",
                                 data:{"tel":userNameCon.val()},

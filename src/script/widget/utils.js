@@ -23,9 +23,12 @@ define(['jquery'],function($){
                 type: 'post',
                 url: url,
                 data: param,
-                dataType: 'json',
-                success: cb&&cb(),
-                error: errCb&&errCb()
+                success: function(data){
+                    cb&&cb(data)
+                },
+                error: function(data){
+                    errCb&&errCb(data)
+                }
             });
 
         },
@@ -34,7 +37,7 @@ define(['jquery'],function($){
             return str.match(reg);
         },
         psdRegx:function(str){
-            var reg = /^(?![a-z]+$)(?![A-Z]+$)(?![0-9]+$)[0-9a-zA-Z\W]\S{6,18}$/;
+            var reg = /^(?![a-z]+$)(?![A-Z]+$)(?![0-9]+$)[0-9a-zA-Z\W]\S{8,16}$/;
             return str.match(reg);
         }
     };
