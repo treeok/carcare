@@ -2,12 +2,9 @@
  * Created by claire on 2015/4/27.
  */
 define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
-    var body = '<div id="purchase" class="form-container">\
-           <a><img src="img/standard.png" alt="标准版本" class="img-thumbnail"></a>\
-           <a><img src="img/korean.png" alt="韩系" class="img-thumbnail"></a>\
-           <a><img src="img/law.png" alt="法系" class="img-thumbnail"></a>\
-           <div style="margin: 15px 20px 15px;"><button id="purchase_btn" type="button" class="btn btn-primary">下一步</button></div>\
-        </div>';
+
+    var body = '<div id="purchase" class="form-container"><div id="purchase_body" style="margin: 15px 20px 15px;"></div>\
+              <div style="margin: 15px 35px 15px;"><button id="purchase_btn" type="button" class="btn btn-primary">下一步</button></div></div>';
 
     var singlePsdPage;
 
@@ -22,19 +19,33 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                     container: $('header'),
                     body: body,
                     afterRender: function () {
-                        var _self = this;
-                        $('#purchase').parent().parent().parent().parent().css({
-                            marginTop:'96px'
-                        });
-                        var aLists = $('#purchase').find('a');
+                        $.ajax({
+                            type: 'post',
+                            url: rootUrl+'/purchase.html',
+                            data: {},
+                            success: function(data){
+                                var html = '';
+                                data = JSON.parse(data);
+                                for(var i = 0; i<data.length;i++){
+                                    var item = data[i];
+                                    html += '<a><img id="'+data[i].id+'" src="'+data[i].upc+'" alt="'+data[i].specifications+'" class="img-thumbnail"></a>'
+                                }
+                                $('#purchase_body').append(html);
 
-                        aLists.each(function(){
-                            $(this).click(function(){
-                                aLists.find('.img-thumbnail').removeClass('active');
-                                $(this).find('img').addClass('active');
-                            });
-                        });
 
+                                $('#purchase').parent().parent().parent().parent().css({
+                                    marginTop:'96px'
+                                });
+                                var aLists = $('#purchase').find('a');
+
+                                aLists.each(function(){
+                                    $(this).click(function(){
+                                        aLists.find('.img-thumbnail').removeClass('active');
+                                        $(this).find('img').addClass('active');
+                                    });
+                                });
+                            }
+                        });
 
                     }
                 });
@@ -43,5 +54,6 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
     };
     singlePsd.init();
     return singlePsdPage;
+
 });
 

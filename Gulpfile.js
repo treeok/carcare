@@ -28,6 +28,7 @@ gulp.task('css', function () {
         .pipe(minifyCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./public/dist/css'))
+        .pipe(gulp.dest('./public/css'))
         .pipe(livereload());
 });
 
@@ -54,7 +55,7 @@ gulp.task('img', function () {
 });
 
 gulp.task('jade2html',['css','js','img'], function () {
-    return gulp.src(['./view/jade/*.jade','./view/jade/**/*.jade'])
+    return gulp.src(['./view/jade/*.jade'])
         .pipe(jade({pretty:true}))
         .pipe(gulp.dest('./public'))
         .pipe(livereload());
@@ -63,6 +64,6 @@ gulp.task('jade2html',['css','js','img'], function () {
 gulp.task('default',['jade2html'], function () {
     //gulp.start('jade2html');
     livereload.listen();
-    gulp.watch(['./src/**/*.js', './src/*.js','./src/**/*.css', './src/*.css','./view/jade/*.jade','./view/jade/**/*.jade'],['css','js','jade2html']);
+    gulp.watch(['./src/**/*.js', './src/*.js','./src/**/*.css', './src/*.css','./view/jade/*.jade','./view/jade/**/*.jade','./src/**/*.png','./src/**/*.ico'],['css','js','img','jade2html']);
 });
 

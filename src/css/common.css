@@ -1,8 +1,4 @@
-.contacts{
-    border: 1px solid #000000;
-}
 .contacts .container-contact{
-    padding: 0 30px;
     margin-bottom: 30px;
 }
 .contacts hr{
@@ -21,6 +17,71 @@
     margin-bottom: 30px;
 }
 #allmap2{
-    height:400px;
+    height:800px;
     width:100%;
+}
+.installStep{
+    margin: 20px 0;
+}
+.installStep .title{
+    display: block;
+    height: 43px;
+    margin: 15px auto;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    border: 1px solid #e9e9e9;
+    background-color: #f2f2f2;
+}
+.installStep .body img{
+    margin:30px auto;
+    display:block;
+}
+.installStep .body .body_img{
+    display: inline-block;
+}
+.installStep .body .body_img img{
+    margin:30px auto;
+    display:inline-block;
+}
+.installStep .body .body_step{
+    font-size: 24px;
+    display: inline-block;
+    margin:0 120px 0 120px;
+}
+.installStep .body .body_step img{
+    display: inline-block;
+}
+.installStep .body .body_step span,.installStep .step span{
+    display:inline-block;
+    height:30px;
+    line-height:30px;
+    margin-left:15px;
+}
+.installStep .step{
+    display: block;
+    margin: 0 auto 30px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 18px;
+}
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    margin-top: 60px;
+}
+.store-select{
+    width: 240px;
+    height: 40px;
+    background-color: #efefef;
+    margin: 15px;
+}
+#search-store{
+    background-color: #666666;
+    padding: 9px 48px;
+}
+#purchase_body a{
+    display: inline-block;
 }

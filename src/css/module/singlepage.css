@@ -58,6 +58,9 @@
 #orderInfo table thead th,#orderInfo table tbody td{
     text-align: center;
 }
+#orderInfo .radio {
+    padding-top: 0;
+}
 #purchase img{
     margin: 15px;
     cursor: pointer;

@@ -15,14 +15,13 @@
 .navbar-default {
     background-color: #ffffff;
     border-color: #e7e7e7;
-    opacity: .97;
 }
 #brand {
     height: 96px;
     width: 144px;
     padding: 20px 18px 20px 1px;
     display: block;
-    background: url(../../img/logo.png) 0 no-repeat;
+
     background-size: auto 56px;
 }
 .navbar-default .navbar-collapse {

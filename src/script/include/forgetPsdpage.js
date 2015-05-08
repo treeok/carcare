@@ -138,7 +138,7 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                     $('#forgetPsd').parent().parent().hide();
                                     var registerSuccessStep1 = new SinglePage({
                                         id: 'register_success_step1',
-                                        title: '已经短信验证码发送至'+userNameCon.val(),
+                                        title: '已经短信验证码发送至'+userNameCon.val().slice(0,3)+'****'+userNameCon.val().slice(7),
                                         container: $('header'),
                                         body: _body1,
                                         afterRender: function () {
@@ -149,6 +149,37 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                             });
 
                                             var codeCon1 = $('#registerSucStep1_code');
+                                            $('#send_registerSucStep1_code').click(function(){
+                                                sendPhoneCode();
+                                            });
+                                            function sendPhoneCode(){
+                                                $("#send_registerSucStep1_code").attr('disabled',true);
+                                                $("#send_registerSucStep1_code").text('60秒后点击再次发送');
+
+                                                var i =60;
+                                                var f=setInterval(function(){
+
+                                                    $("#send_registerSucStep1_code").text(i+'秒后点击再次发送');
+                                                    i--;
+                                                    if(i=='0'){
+                                                        clearInterval(f);
+                                                        $("#send_registerSucStep1_code").attr('disabled',false);
+                                                        $("#send_registerSucStep1_code").text('获取验证码');
+                                                    }
+                                                },1000);
+
+                                                $.ajax({
+                                                    url: rootUrl+'/member/sendCode.html',
+                                                    type:"post",
+                                                    datatype:"html",
+                                                    data:{"tel":userNameCon.val()},
+                                                    success:function(data){
+                                                        if(data.errFlag==0){
+                                                            alert(data.errMsg);
+                                                        }
+                                                    }
+                                                });
+                                            }
 
                                             $('#forgetPsd_btn_2').click(function () {
 

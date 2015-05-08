@@ -2,7 +2,7 @@
  * Created by NCGZ-DZ- on 2015/4/17.
  */
 define(['jquery'],function($){
-    var _html = '<div id="banner" class="banner">\
+    var _html = '<div id="banner" class="banner" style="margin-top: 97px;">\
             <ul class="banner-lists">\
             <%=content%>\
             </ul>\

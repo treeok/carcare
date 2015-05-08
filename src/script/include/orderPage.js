@@ -5,7 +5,7 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
     var body = '<div id="orderInfo" class="form-container">\
         <div class="orderInfo-group" style="margin-bottom: 10px;">\
             <div class="orderInfo-title">收货地址</div>\
-            <div class="orderInfo-body">\
+            <div id="orderInfo-list" class="orderInfo-body">\
                <div class="radio selected">\
                   <label class="orderInfo-address">\
                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> 史星 上海市万荣路1188弄\
@@ -83,9 +83,9 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
         <div class="form-group">\
             <label for="address_dlg_psd" class="col-sm-2 control-label">收货地址</label>\
             <div class="col-sm-10" style="margin-bottom: 15px;">\
-            <select id="province"></select>\
-            <select id="city"></select>\
-            <select id="county"></select>\
+            <select id="province" class="form-control"></select>\
+            <select id="city" class="form-control"></select>\
+            <select id="county" class="form-control"></select>\
             </div>\
         </div>\
         <div class="form-group">\
@@ -127,82 +127,105 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
                     afterRender:function(){
                         var _self = this;
                         $('#orderInfo').parent().css({padding: 0});
-                        $('#orderInfo').parent().parent().parent().parent().css({backgroundColor: '#fff'});
+                        $('#orderInfo').parent().parent().parent().parent().css({backgroundColor: '#fff',marginTop:'136px'});
                         $('#orderInfo').parent().parent().css({margin: '20px auto'});
 
-                        $('#orderInfo-address-add').click(function(){
-                            newDialog._show();
-                        });
-
-                        var newDialog = new Dialog({
-                            title: '收货信息',
-                            body: dlgBody,
-                            bottom: dlgBottom,
-                            width: '600',
-                            afterRender: function(){
-                                $('#address_dlg').on('focus','input',function(){
-                                    $('#address_dlg').find('.tips-container').hide();
-                                    $('#address_dlg').find('.col-sm-10').removeClass('has-error');
+                        //用户地址的动态生成
+                        Utils.ajaxJson(rootUrl+'/member/login',{tel:'18588732600', password:'123456789q'},function(data){
+                            data = JSON.parse(data);
+                            if(data.errFlag == 0){
+                                Utils.ajaxJson(rootUrl+'/address/list',function(data){
+                                    console.log(data);
                                 });
 
-                                var userNameCon = $('#address_dlg_id'),
-                                    telCon = $('#address_dlg_tel'),
-                                    psdCon = $('#address_dlg_psd'),
-                                    detailCon = $('#address_dlg_detail');
+                                $('#orderInfo-address-add').click(function(){
+                                    var newDialog = new Dialog({
+                                        title: '收货信息',
+                                        body: dlgBody,
+                                        bottom: dlgBottom,
+                                        width: '600',
+                                        afterRender: function(){
+                                            $('#address_dlg').on('focus','input',function(){
+                                                $('#address_dlg').find('.tips-container').hide();
+                                                $('#address_dlg').find('.col-sm-10').removeClass('has-error');
+                                            });
 
-                                buildSelect(1,0,'province');
-                                buildSelect(2,0,'city');
-                                buildSelect(3,0,'county');
+                                            var userNameCon = $('#address_dlg_id'),
+                                                telCon = $('#address_dlg_tel'),
+                                                psdCon = $('#address_dlg_psd'),
+                                                detailCon = $('#address_dlg_detail');
 
+                                            buildSelect(1,0,'province');
+                                            buildSelect(2,0,'city');
+                                            buildSelect(3,0,'county');
 
-                                $('#address_dlg_save').click(function(){
-                                    if(userNameCon.val() == ''){
-                                        userNameCon.next().show();
-                                        userNameCon.parent().addClass('has-error');
-                                        return false;
-                                    }
-                                    if(telCon.val() == ''){
-                                        telCon.next().show();
-                                        telCon.parent().addClass('has-error');
-                                        return false;
-                                    }
-                                    if(!Utils.telRegx(telCon.val())){
-                                        telCon.next().next().show();
-                                        telCon.parent().addClass('has-error');
-                                        return false;
-                                    }
-                                    if(detailCon.val() == ''){
-                                        detailCon.next().show();
-                                        detailCon.parent().addClass('has-error');
-                                        return false;
-                                    }
+                                            $('#province').change(function(){
+                                                $('#city').empty();
+                                                var value = $(this).val();
+                                                buildSelect(2,value,'city');
+                                            });
 
-                                    var params = {};
-
-                                    Utils.ajaxJson('',params,function(){
-
-                                    });
+                                            $('#city').change(function(){
+                                                $('#county').empty();
+                                                var value = $(this).val();
+                                                buildSelect(3,value,'county');
+                                            });
 
 
-                                });
+                                            $('#address_dlg_save').click(function(){
+                                                if(userNameCon.val() == ''){
+                                                    userNameCon.next().show();
+                                                    userNameCon.parent().addClass('has-error');
+                                                    return false;
+                                                }
+                                                if(telCon.val() == ''){
+                                                    telCon.next().show();
+                                                    telCon.parent().addClass('has-error');
+                                                    return false;
+                                                }
+                                                if(!Utils.telRegx(telCon.val())){
+                                                    telCon.next().next().show();
+                                                    telCon.parent().addClass('has-error');
+                                                    return false;
+                                                }
+                                                if(detailCon.val() == ''){
+                                                    detailCon.next().show();
+                                                    detailCon.parent().addClass('has-error');
+                                                    return false;
+                                                }
 
-                                function buildSelect(levelId,id,contentId){
-                                    Utils.ajaxJson('http://10.8.6.127:8080/carcare/address/getCity',{levelId:levelId,id:id},function(data){
-                                        data = JSON.parse(data);
-                                        if(data.errFlag == 1){
-                                            var html = '';
-                                            /*for(){
-                                                html
-                                            }*/
-                                            $('#'+contentId).append(html);
+                                                var params = {};
+
+                                                Utils.ajaxJson('',params,function(){
+
+                                                });
+
+                                            });
+
+                                            function buildSelect(levelId,id,contentId){
+                                                Utils.ajaxJson(rootUrl+'/address/getCity',{levelId:levelId,id:id},function(data){
+                                                    data = JSON.parse(data);
+                                                    if(data.errFlag == 1){
+                                                        var d = data.list;
+                                                        var html = '';
+                                                        for(var i = 0;i < d.length;i++){
+                                                            var item = d[i];
+                                                            html += '<option value="'+item.id+'">'+item.name+'</option>';
+                                                         }
+                                                        $('#'+contentId).append(html);
+                                                    }
+                                                });
+                                            }
+
+
                                         }
                                     });
-                                }
+                                });
+
 
 
                             }
                         });
-                        newDialog._hide();
                     }
                 });
             }
@@ -210,5 +233,4 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
     };
     register.init();
     return singleRegister;
-
 });

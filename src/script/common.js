@@ -1,4 +1,5 @@
-var rootUrl = 'http://10.8.6.127:8080/carcare-web-homesite';
+var rootUrl = 'http://10.8.6.127:8888/carcare-web-homesite';
+var loginName;
 //var static_domain = 'http://localhost:63342/carcare/public';
 require.config({
     baseUrl:'script',
@@ -19,7 +20,6 @@ var mstmpl = function (str, data) {
     return _inner(str, data);
 };
 
-
 require(['jquery','widget/utils'], function ($,Utils) {
     var urlArray = document.URL.split('/'),
         docName = urlArray[urlArray.length-1].split('.')[0];
@@ -33,7 +33,7 @@ require(['jquery','widget/utils'], function ($,Utils) {
         var userNameCon = $('#login_login_user');
         var psdCon = $('#login_login_psd');
 
-        $('#login_login_btn').click(function(){
+        $('#login_login_btn1').click(function(){
             if(userNameCon.val() == ''){
                 userNameCon.next().next().show();
                 return false;
@@ -49,11 +49,13 @@ require(['jquery','widget/utils'], function ($,Utils) {
             Utils.ajaxJson(rootUrl+'/member/login',params,function(data){
                 data = JSON.parse(data);
                 if(data.errFlag == 0){
-                    window.location.href = 'index.html';
-                }else if(data.errFlag == 1){
+                    loginName = Utils.getCookie('SESSION_LOGIN_USERNAME');
+                    console.log(loginName);
+                    //window.location.href = 'index.html';
+                }else if(data.errFlag == -1){
                     userNameCon.next().show();
                     return false;
-                }else if(data.errFlag == 2){
+                }else if(data.errFlag == -2){
                     psdCon.next().show();
                     return false;
                 }else{
@@ -61,28 +63,6 @@ require(['jquery','widget/utils'], function ($,Utils) {
                 }
             });
 
-            /*$.ajax({
-                url:rootUrl+'/member/login.html',
-                data:params,
-                type:'POST',
-                success:function(data){
-                    alert(data);
-                    if(data.errFlag == 0){
-                        window.location.href = 'index.html';
-                    }else if(data.errFlag == 1){
-                        userNameCon.next().show();
-                        return false;
-                    }else if(data.errFlag == 2){
-                        psdCon.next().show();
-                        return false;
-                    }else{
-                        window.location.href = '404.html';
-                    }
-                },
-                error:function(){
-                    alert(11);
-                }
-            });*/
         });
 
         $('#login_forgetPsd_btn').click(function(){
@@ -107,6 +87,23 @@ require(['jquery','widget/utils'], function ($,Utils) {
         });
     }else if(docName=='purchase'){
         require(['include/purchasePage'], function (PurchasePage) {
+
+        });
+    }else if(docName=='carlist'){
+        require(['widget/stickUp'], function (StickUp) {
+            //enabling stickUp on the '.navbar-fd' class
+            new StickUp({
+                parts: {
+                    0: 'all',
+                    1: 'B',
+                    2: 'D',
+                    3: 'F',
+                    4: 'R',
+                    5: 'X'
+                },
+                itemClass: 'menuItem',
+                itemHover: 'active'
+            });
 
         });
     }
