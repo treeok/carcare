@@ -1,5 +1,4 @@
-var rootUrl = 'http://10.8.6.127:8888/carcare-web-homesite';
-var loginName;
+var rootUrl = 'http://10.8.6.127:8080/carcare-web-homesite';
 //var static_domain = 'http://localhost:63342/carcare/public';
 require.config({
     baseUrl:'script',
@@ -25,54 +24,9 @@ require(['jquery','widget/utils'], function ($,Utils) {
         docName = urlArray[urlArray.length-1].split('.')[0];
 
     if(docName=='login'||docName=='prelogin'){
-        //login.html
-        $('#loginPage').on('focus', 'input', function () {
-            $('#loginPage').find('.tips-container').hide();
-        });
-
-        var userNameCon = $('#login_login_user');
-        var psdCon = $('#login_login_psd');
-
-        $('#login_login_btn1').click(function(){
-            if(userNameCon.val() == ''){
-                userNameCon.next().next().show();
-                return false;
-            }
-            if(psdCon.val() == ''){
-                psdCon.next().next().show();
-                return false;
-            }
-            var params = {
-                tel:userNameCon.val(),
-                password:psdCon.val()
-            };
-            Utils.ajaxJson(rootUrl+'/member/login',params,function(data){
-                data = JSON.parse(data);
-                if(data.errFlag == 0){
-                    loginName = Utils.getCookie('SESSION_LOGIN_USERNAME');
-                    console.log(loginName);
-                    //window.location.href = 'index.html';
-                }else if(data.errFlag == -1){
-                    userNameCon.next().show();
-                    return false;
-                }else if(data.errFlag == -2){
-                    psdCon.next().show();
-                    return false;
-                }else{
-                    window.location.href = rootUrl+'/member/404.html';
-                }
-            });
+        require(['include/loginPage'], function (LoginPage) {
 
         });
-
-        $('#login_forgetPsd_btn').click(function(){
-            window.location.href = rootUrl+'/member/forgetPsd.html';
-        });
-
-        $('#login_register_btn').click(function(){
-            window.location.href = rootUrl+'/member/register.html';
-        });
-
     }else if(docName=='register'){
         require(['include/registerPage'], function (RegisterPage) {
 
@@ -91,19 +45,6 @@ require(['jquery','widget/utils'], function ($,Utils) {
         });
     }else if(docName=='carlist'){
         require(['widget/stickUp'], function (StickUp) {
-            //enabling stickUp on the '.navbar-fd' class
-            new StickUp({
-                parts: {
-                    0: 'all',
-                    1: 'B',
-                    2: 'D',
-                    3: 'F',
-                    4: 'R',
-                    5: 'X'
-                },
-                itemClass: 'menuItem',
-                itemHover: 'active'
-            });
 
         });
     }

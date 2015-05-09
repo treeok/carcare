@@ -131,9 +131,9 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
                         $('#orderInfo').parent().parent().css({margin: '20px auto'});
 
                         //用户地址的动态生成
-                        Utils.ajaxJson(rootUrl+'/member/login',{tel:'18588732600', password:'123456789q'},function(data){
+                        /*Utils.ajaxJson(rootUrl+'/member/login',{tel:'18588732600', password:'123456789q'},function(data){
                             data = JSON.parse(data);
-                            if(data.errFlag == 0){
+                            if(data.errFlag == 0){*/
                                 Utils.ajaxJson(rootUrl+'/address/list',function(data){
                                     console.log(data);
                                 });
@@ -221,11 +221,9 @@ define(['widget/singlePage','widget/utils','widget/dialog'],function(SinglePage,
                                         }
                                     });
                                 });
-
-
-
+/*
                             }
-                        });
+                        });*/
                     }
                 });
             }
