@@ -1,7 +1,7 @@
-var rootUrl = 'http://10.8.6.127:8080/carcare-web-homesite';
+//var rootUrl = 'http://10.8.6.127:8080/carcare-web-homesite';
 //var static_domain = 'http://localhost:63342/carcare/public';
 require.config({
-    baseUrl:'script',
+    baseUrl: static_domain+'/script',
     paths: {
         jquery: 'jquery-1.11.1'
     }
@@ -46,6 +46,10 @@ require(['jquery','widget/utils'], function ($,Utils) {
     }else if(docName=='carlist'){
         require(['widget/stickUp'], function (StickUp) {
 
+        });
+    }else if(docName=='orderSuccess'){
+        $('#order-success-pay').click(function (){
+        	$('#alipaysubmit').submit();
         });
     }
 });

@@ -10,8 +10,8 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     watch = require('gulp-watch'),
     jade = require('gulp-jade'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
+    /*imagemin = require('gulp-imagemin'),
+    pngquant = require('imagemin-pngquant'),*/
     clean = require('gulp-clean');
 
 gulp.task('clean', function () {
@@ -45,11 +45,11 @@ gulp.task('js', function () {
 
 gulp.task('img', function () {
     return gulp.src(['./src/**/*.png','./src/**/*.ico'])
-        .pipe(imagemin({
+        /*.pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
-        }))
+        }))*/
         .pipe(gulp.dest('./public/'))
         .pipe(gulp.dest('./public/dist'));
 });

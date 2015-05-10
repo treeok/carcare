@@ -21,14 +21,14 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                     afterRender: function () {
                         $.ajax({
                             type: 'post',
-                            url: rootUrl+'/purchase.html',
+                            url: rootUrl+'/purchase',
                             data: {},
                             success: function(data){
                                 var html = '';
                                 data = JSON.parse(data);
                                 for(var i = 0; i<data.length;i++){
                                     var item = data[i];
-                                    html += '<a><img id="'+data[i].id+'" src="'+data[i].upc+'" alt="'+data[i].specifications+'" class="img-thumbnail"></a>'
+                                    html += '<a><img data-id="'+data[i].id+'" src="'+data[i].upc+'" alt="'+data[i].specifications+'" class="img-thumbnail"></a>'
                                 }
                                 $('#purchase_body').append(html);
 
@@ -37,12 +37,22 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                     marginTop:'96px'
                                 });
                                 var aLists = $('#purchase').find('a');
-
+                                var skuIdVal;
                                 aLists.each(function(){
                                     $(this).click(function(){
                                         aLists.find('.img-thumbnail').removeClass('active');
                                         $(this).find('img').addClass('active');
+                                        skuIdVal = $(this).find('img').attr('data-id');
                                     });
+                                });
+                                 
+                                $('#purchase_btn').click(function(){
+                                	if(skuIdVal == undefined){
+                                		alert('请选择版本');
+                                	}else{
+                                		 window.location.href = 'orderInfo.html?skuId='+skuIdVal+'&quantity=1';
+                                	}
+                         
                                 });
                             }
                         });

@@ -1,0 +1,37 @@
+doctype html
+html
+   head
+      title 定点门店
+      meta(http-equiv="Content-Type",content="text/html; charset=utf-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      include include/loads.jade
+   body
+      include include/header.jade
+      .container(style="margin-top:136px;margin-bottom:40px;")
+         .row(style="border:1px solid #acacac;")
+            div(style="margin:15px;")
+               img(src="img/ok.png")
+               span 订单提交成功！请付款
+               span#order-success-prices
+            hr(style="margin:5px 15px;")
+            div
+               div
+                 span#order-success-orderNo 订单编号：**********
+                 button(type="button" class="btn btn-link") 查看订单
+               div
+                 p#order-success-delivery-address 配送地址：**********
+               button(type="button" class="btn btn-primary") 付款成功后，七天内发货
+         p 选择支付方式
+         .row(style="border:1px solid #acacac;")
+            label
+              input(type="radio" name="select-pay-way" id="1")
+              img(src="img/alipay-code.png")
+            label
+               input(type="radio" name="select-pay-way" id="2")
+               img(src="img/alipay-alipay.png")
+         .row
+            div.pull-right
+               button#order-success-change-order(type="button" class="btn btn-primary") 修改订单
+               button#order-success-pay(type="button" class="btn btn-primary") 马上付款
+      include include/footer.jade

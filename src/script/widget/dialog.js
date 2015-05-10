@@ -2,7 +2,7 @@
  * Created by claire 2015/4/15.
  */
 define(['jquery'],function($){
-    var zIndex = 1000;
+    var zIndex = 2000;
     var index = 0;
     var jqWIN = $(window);
     var _html = '<div id="dialog_<%=index%>" class="dialog" style="margin:0;display:none;z-index:<%=zIndex%>;width:<%=width%>px;">\
@@ -72,13 +72,13 @@ define(['jquery'],function($){
         },
         _reposition: function () {
             this.el.css({
-                top: (jqWIN.height() - this.el.height()) / 2 + jqWIN.scrollTop(),
+                top: (jqWIN.height() - this.el.height()) / 2 + jqWIN.scrollTop() - 256,
                 left: (jqWIN.width() - this.el.width()) / 2
             });
         },
         _show: function (d) {
             if(!$('body').find('.dialog_bg').length){
-                $('body').append('<div class="gray-bg dialog-bg" style="z-index: 100;"></div>');
+                $('body').append('<div class="gray-bg dialog-bg" style="z-index: 1050;height:'+jqWIN.height()+'"></div>');
             }
             function bgHeight(){
                 var bodyHeight = $(document).height();
