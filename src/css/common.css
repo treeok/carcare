@@ -85,3 +85,15 @@
 #purchase_body a{
     display: inline-block;
 }
+.check-order-list{
+    border:3px solid #efefef;
+    display:inline-block;
+    padding:15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 300px;
+    cursor: pointer;
+}
+.default{
+    border-color: red;
+}

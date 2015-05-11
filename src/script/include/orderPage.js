@@ -124,274 +124,266 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                         $('#orderInfo').parent().parent().css({margin: '20px auto'});
 
                         //用户地址的动态生成
-                        Utils.ajaxJson(rootUrl + '/member/login', {
-                            tel: '18588732600',
-                            password: '123456789q'
-                        }, function (data) {
+                        getAddressList();
+
+                        Utils.ajaxJson(rootUrl + '/findSkuById', {id:skuId}, function (data) {
                             data = JSON.parse(data);
-                            if (data.errFlag == 0) {
-                                getAddressList();
-                          
-                                Utils.ajaxJson(rootUrl + '/findSkuById', {id:skuId}, function (data) {
-                                	data = JSON.parse(data);
-                                	$('#address-goods-details').empty();
-                                    var html = '<div class="media" style="margin: 15px 0;"><div class="media-left"><a href="#"><img class="media-object" src="'+data.upc+'">\
+                            $('#address-goods-details').empty();
+                            var html = '<div class="media" style="margin: 15px 0;"><div class="media-left"><a href="#"><img class="media-object" src="'+data.upc+'">\
                                     		</a></div><div class="media-body">\
                                             <h4 class="media-heading">'+data.specifications+'</h4>'+data.specifications+'</div></div>';
-                                    $('#address-goods-details').append(html);
-                                    $('#address-goods-price').text('￥'+data.price);
-                                    $('#address-goods-quantity').text(quantity);
-                                });
-                                
-                                var params1 = {
-                                		//provinceId:
-                                };
-                                
-                                
-                                $('#address-submit').click(function(){
-                                	
-                                });
+                            $('#address-goods-details').append(html);
+                            $('#address-goods-price').text('￥'+data.price);
+                            $('#address-goods-quantity').text(quantity);
+                        });
 
-                                $('#orderInfo-address-add').click(function () {
-                                    var newDialog = new Dialog({
-                                        title: '新增收货信息',
-                                        body: dlgBody,
-                                        bottom: dlgBottom,
-                                        width: '600',
-                                        afterRender: function () {
-                                            $('#address_dlg').on('focus', 'input', function () {
-                                                $('#address_dlg').find('.tips-container').hide();
-                                                $('#address_dlg').find('.col-sm-10').removeClass('has-error');
-                                            });
-
-                                            var userNameCon = $('#address_dlg_id'),
-                                                telCon = $('#address_dlg_tel'),
-                                                psdCon = $('#address_dlg_psd'),
-                                                detailCon = $('#address_dlg_detail');
+                        var params1 = {
+                            //provinceId:
+                        };
 
 
-                                            buildSelect(1, 0, 'province');
-                                            buildSelect(2, 0, 'city');
-                                            buildSelect(3, 0, 'county');
+                        $('#address-submit').click(function(){
 
-                                            $('#province').change(function () {
-                                                $('#city').empty();
-                                                var value = $(this).val();
-                                                buildSelect(2, value, 'city');
-                                            });
+                        });
 
-                                            $('#city').change(function () {
-                                                $('#county').empty();
-                                                var value = $(this).val();
-                                                buildSelect(3, value, 'county');
-                                            });
+                        $('#orderInfo-address-add').click(function () {
+                            var newDialog = new Dialog({
+                                title: '新增收货信息',
+                                body: dlgBody,
+                                bottom: dlgBottom,
+                                width: '600',
+                                afterRender: function () {
+                                    $('#address_dlg').on('focus', 'input', function () {
+                                        $('#address_dlg').find('.tips-container').hide();
+                                        $('#address_dlg').find('.col-sm-10').removeClass('has-error');
+                                    });
 
-                                            $('#address_dlg_save').click(function () {
-                                                if (userNameCon.val() == '') {
-                                                    userNameCon.next().show();
-                                                    userNameCon.parent().addClass('has-error');
-                                                    return false;
-                                                }
-                                                if (telCon.val() == '') {
-                                                    telCon.next().show();
-                                                    telCon.parent().addClass('has-error');
-                                                    return false;
-                                                }
-                                                if (!Utils.telRegx(telCon.val())) {
-                                                    telCon.next().next().show();
-                                                    telCon.parent().addClass('has-error');
-                                                    return false;
-                                                }
-                                                if (detailCon.val() == '') {
-                                                    detailCon.next().show();
-                                                    detailCon.parent().addClass('has-error');
-                                                    return false;
-                                                }
+                                    var userNameCon = $('#address_dlg_id'),
+                                        telCon = $('#address_dlg_tel'),
+                                        psdCon = $('#address_dlg_psd'),
+                                        detailCon = $('#address_dlg_detail');
 
-                                                var params = {
-                                                    name: userNameCon.val(),
-                                                    mobile: telCon.val(),
-                                                    provinceId: $('#province').val(),
-                                                    cityId: $('#city').val(),
-                                                    districtId: $('#county').val(),
-                                                    defaultaddress: $('#address_dlg_default_address').val(),
-                                                    district: $('#address_dlg_detail').val()
-                                                };
 
-                                                Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
-                                                    data = JSON.parse(data);
-                                                    if (data.errFlag == 0) {
-                                                        alert('地址添加成功');
-                                                        getAddressList();
-                                                        newDialog._close();
-                                                    } else {
-                                                        alert('地址添加错误');
-                                                    }
+                                    buildSelect(1, 0, 'province');
+                                    buildSelect(2, 0, 'city');
+                                    buildSelect(3, 0, 'county');
 
-                                                });
+                                    $('#province').change(function () {
+                                        $('#city').empty();
+                                        var value = $(this).val();
+                                        buildSelect(2, value, 'city');
+                                    });
 
-                                            });
-                                            $('#address_dlg_cancel').click(function () {
+                                    $('#city').change(function () {
+                                        $('#county').empty();
+                                        var value = $(this).val();
+                                        buildSelect(3, value, 'county');
+                                    });
+
+                                    $('#address_dlg_save').click(function () {
+                                        if (userNameCon.val() == '') {
+                                            userNameCon.next().show();
+                                            userNameCon.parent().addClass('has-error');
+                                            return false;
+                                        }
+                                        if (telCon.val() == '') {
+                                            telCon.next().show();
+                                            telCon.parent().addClass('has-error');
+                                            return false;
+                                        }
+                                        if (!Utils.telRegx(telCon.val())) {
+                                            telCon.next().next().show();
+                                            telCon.parent().addClass('has-error');
+                                            return false;
+                                        }
+                                        if (detailCon.val() == '') {
+                                            detailCon.next().show();
+                                            detailCon.parent().addClass('has-error');
+                                            return false;
+                                        }
+
+                                        var params = {
+                                            name: userNameCon.val(),
+                                            mobile: telCon.val(),
+                                            provinceId: $('#province').val(),
+                                            cityId: $('#city').val(),
+                                            districtId: $('#county').val(),
+                                            defaultaddress: $('#address_dlg_default_address').val(),
+                                            district: $('#address_dlg_detail').val()
+                                        };
+
+                                        Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
+                                            data = JSON.parse(data);
+                                            if (data.errFlag == 0) {
+                                                alert('地址添加成功');
+                                                getAddressList();
                                                 newDialog._close();
-                                            });
+                                            } else {
+                                                alert('地址添加错误');
+                                            }
 
+                                        });
 
-                                        }
                                     });
-                                });
+                                    $('#address_dlg_cancel').click(function () {
+                                        newDialog._close();
+                                    });
 
-                                $('#orderInfo-list').on('click', '.address-single-edit', function () {
-                                	var id = $(this).parent().find('input').val();
-                                    var newDialog = new Dialog({
-                                        title: '编辑收货信息',
-                                        body: dlgBody,
-                                        bottom: dlgBottom,
-                                        width: '600',
-                                        afterRender: function () {
-                                            $('#address_dlg').on('focus', 'input', function () {
-                                                $('#address_dlg').find('.tips-container').hide();
-                                                $('#address_dlg').find('.col-sm-10').removeClass('has-error');
-                                            });
 
-                                            var userNameCon = $('#address_dlg_id'),
-                                                telCon = $('#address_dlg_tel'),
+                                }
+                            });
+                        });
+
+                        $('#orderInfo-list').on('click', '.address-single-edit', function () {
+                            var id = $(this).parent().find('input').val();
+                            var newDialog = new Dialog({
+                                title: '编辑收货信息',
+                                body: dlgBody,
+                                bottom: dlgBottom,
+                                width: '600',
+                                afterRender: function () {
+                                    $('#address_dlg').on('focus', 'input', function () {
+                                        $('#address_dlg').find('.tips-container').hide();
+                                        $('#address_dlg').find('.col-sm-10').removeClass('has-error');
+                                    });
+
+                                    var userNameCon = $('#address_dlg_id'),
+                                        telCon = $('#address_dlg_tel'),
 //                                                psdCon = $('#address_dlg_psd'),
-                                                detailCon = $('#address_dlg_detail');
+                                        detailCon = $('#address_dlg_detail');
 
 
-                                            buildSelect(1, 0, 'province');
-                                            buildSelect(2, 0, 'city');
-                                            buildSelect(3, 0, 'county');
+                                    buildSelect(1, 0, 'province');
+                                    buildSelect(2, 0, 'city');
+                                    buildSelect(3, 0, 'county');
 
-                                            $('#province').change(function () {
-                                                $('#city').empty();
-                                                var value = $(this).val();
-                                                buildSelect(2, value, 'city');
-                                            });
+                                    $('#province').change(function () {
+                                        $('#city').empty();
+                                        var value = $(this).val();
+                                        buildSelect(2, value, 'city');
+                                    });
 
-                                            $('#city').change(function () {
-                                                $('#county').empty();
-                                                var value = $(this).val();
-                                                buildSelect(3, value, 'county');
-                                            });
+                                    $('#city').change(function () {
+                                        $('#county').empty();
+                                        var value = $(this).val();
+                                        buildSelect(3, value, 'county');
+                                    });
 
-                                            Utils.ajaxJson(rootUrl + '/address/findAddressById', {id: id}, function (data) {
+                                    Utils.ajaxJson(rootUrl + '/address/findAddressById', {id: id}, function (data) {
+                                        data = JSON.parse(data);
+                                        newDialog._show();
+                                        userNameCon.val(data.name);
+                                        telCon.val(data.mobile);
+                                        $('#province  option[value="'+ data.provinceId +'"] ').attr("selected",true);
+                                        $('#city  option[value="'+ data.cityId +'"] ').attr("selected",true);
+                                        $('#county  option[value="'+ data.districtId +'"] ').attr("selected",true);
+                                        document.getElementById("address_dlg_default_address").value = data.defaultAddress;
+                                        $('#address_dlg_detail').val(data.district);
+
+                                        var params = {
+                                            name: userNameCon.val(),
+                                            mobile: telCon.val(),
+                                            provinceId: $('#province').val(),
+                                            cityId: $('#city').val(),
+                                            districtId: $('#county').val(),
+                                            defaultaddress: $('#address_dlg_default_address').val(),
+                                            district: $('#address_dlg_detail').val()
+                                        };
+                                        $('#address_dlg_save').click(function () {
+                                            if (userNameCon.val() == '') {
+                                                userNameCon.next().show();
+                                                userNameCon.parent().addClass('has-error');
+                                                return false;
+                                            }
+                                            if (telCon.val() == '') {
+                                                telCon.next().show();
+                                                telCon.parent().addClass('has-error');
+                                                return false;
+                                            }
+                                            if (!Utils.telRegx(telCon.val())) {
+                                                telCon.next().next().show();
+                                                telCon.parent().addClass('has-error');
+                                                return false;
+                                            }
+                                            if (detailCon.val() == '') {
+                                                detailCon.next().show();
+                                                detailCon.parent().addClass('has-error');
+                                                return false;
+                                            }
+
+                                            var params = {
+                                                name: userNameCon.val(),
+                                                mobile: telCon.val(),
+                                                provinceId: $('#province').val(),
+                                                cityId: $('#city').val(),
+                                                districtId: $('#county').val(),
+                                                defaultaddress: $('#address_dlg_default_address').val(),
+                                                district: $('#address_dlg_detail').val()
+                                            };
+
+                                            Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
                                                 data = JSON.parse(data);
-                                                newDialog._show();
-                                                userNameCon.val(data.name);
-                                                telCon.val(data.mobile);
-                                                $('#province  option[value="'+ data.provinceId +'"] ').attr("selected",true);
-                                                $('#city  option[value="'+ data.cityId +'"] ').attr("selected",true);
-                                                $('#county  option[value="'+ data.districtId +'"] ').attr("selected",true);
-                                                document.getElementById("address_dlg_default_address").value = data.defaultAddress;
-                                                $('#address_dlg_detail').val(data.district);
-
-                                                var params = {
-                                                    name: userNameCon.val(),
-                                                    mobile: telCon.val(),
-                                                    provinceId: $('#province').val(),
-                                                    cityId: $('#city').val(),
-                                                    districtId: $('#county').val(),
-                                                    defaultaddress: $('#address_dlg_default_address').val(),
-                                                    district: $('#address_dlg_detail').val()
-                                                };
-                                                $('#address_dlg_save').click(function () {
-                                                    if (userNameCon.val() == '') {
-                                                        userNameCon.next().show();
-                                                        userNameCon.parent().addClass('has-error');
-                                                        return false;
-                                                    }
-                                                    if (telCon.val() == '') {
-                                                        telCon.next().show();
-                                                        telCon.parent().addClass('has-error');
-                                                        return false;
-                                                    }
-                                                    if (!Utils.telRegx(telCon.val())) {
-                                                        telCon.next().next().show();
-                                                        telCon.parent().addClass('has-error');
-                                                        return false;
-                                                    }
-                                                    if (detailCon.val() == '') {
-                                                        detailCon.next().show();
-                                                        detailCon.parent().addClass('has-error');
-                                                        return false;
-                                                    }
-
-                                                    var params = {
-                                                        name: userNameCon.val(),
-                                                        mobile: telCon.val(),
-                                                        provinceId: $('#province').val(),
-                                                        cityId: $('#city').val(),
-                                                        districtId: $('#county').val(),
-                                                        defaultaddress: $('#address_dlg_default_address').val(),
-                                                        district: $('#address_dlg_detail').val()
-                                                    };
-
-                                                    Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
-                                                        data = JSON.parse(data);
-                                                        if (data.errFlag == 0) {
-                                                            alert('地址添加成功');
-                                                            getAddressList();
-                                                            newDialog._close();
-                                                        } else {
-                                                            alert('地址添加错误');
-                                                        }
-
-                                                    });
-
-                                                });
-                                                $('#address_dlg_cancel').click(function () {
+                                                if (data.errFlag == 0) {
+                                                    alert('地址添加成功');
+                                                    getAddressList();
                                                     newDialog._close();
-                                                });
+                                                } else {
+                                                    alert('地址添加错误');
+                                                }
+
                                             });
-                                        }
+
+                                        });
+                                        $('#address_dlg_cancel').click(function () {
+                                            newDialog._close();
+                                        });
                                     });
+                                }
+                            });
+                        });
 
+                        $('#orderInfo-list').on('click', '.address-single-delete', function () {
+                            var id = $(this).parent().find('input').val();
+                            console.log(id);
+                            Utils.ajaxJson(rootUrl + '/address/delete', {id: id}, function (data) {
+                                data = JSON.parse(data);
+                                if (data.errFlag == 0) {
+                                    alert('删除成功');
+                                    getAddressList();
+                                }
+                            });
+                        });
 
-                                });
+                        $('#address-submit').click(function(){
+                            var params = {};
+                            params.provinceId = $('#orderInfo-list').find('.selected .address-list-province').attr('data-value');
+                            params.cityId = $('#orderInfo-list').find('.selected .address-list-city').attr('data-value');
+                            params.areaId = $('#orderInfo-list').find('.selected .address-list-county').attr('data-value');
+                            params.address = $('#orderInfo-list').find('.selected .address-list-province').text() + $('#orderInfo-list').find('.selected .address-list-city').text() + $('#orderInfo-list').find('.selected .address-list-county').text() + $('#orderInfo-list').find('.selected .address-list-detail-address').text();;
+                            params.name = $('#orderInfo-list').find('.selected .address-list-name').text();
+                            params.mobile = $('#orderInfo-list').find('.selected .address-list-mobile').text();
+                            params.paymentType = 1;
+                            params.tradeItem = skuId+':'+quantity;
 
-                                $('#orderInfo-list').on('click', '.address-single-delete', function () {
-                                    var id = $(this).parent().find('input').val();
-                                    console.log(id);
-                                    Utils.ajaxJson(rootUrl + '/address/delete', {id: id}, function (data) {
-                                        data = JSON.parse(data);
-                                        if (data.errFlag == 0) {
-                                            alert('删除成功');
-                                            getAddressList();
-                                        }
-                                    });
-                                });
-                                
-                                $('#address-submit').click(function(){
-                                	var params = {};
-                                	params.provinceId = $('#orderInfo-list').find('.selected .address-list-province').attr('data-value');
-                                	params.cityId = $('#orderInfo-list').find('.selected .address-list-city').attr('data-value');
-                                	params.areaId = $('#orderInfo-list').find('.selected .address-list-county').attr('data-value');
-                                	params.address = $('#orderInfo-list').find('.selected .address-list-province').text() + $('#orderInfo-list').find('.selected .address-list-city').text() + $('#orderInfo-list').find('.selected .address-list-county').text() + $('#orderInfo-list').find('.selected .address-list-detail-address').text();;
-                                	params.name = $('#orderInfo-list').find('.selected .address-list-name').text();
-                                	params.mobile = $('#orderInfo-list').find('.selected .address-list-mobile').text();
-                                	params.paymentType = 1;
-                                	params.tradeItem = skuId+':'+quantity;
-                                	
-                                	Utils.ajaxJson(rootUrl + '/order/order-create.html', params, function (data) {
-                                        data = JSON.parse(data);
-                                        if(data.errFlag == 0){
-                                        	window.location.href = rootUrl + '/order/orderSuccess.html?code=' + data.errMsg;
-                                        }else if(data.errFlag == skuId){
-                                        	alert(库存不足);
-                                        }
-                                    });
-                                });
+                            Utils.ajaxJson(rootUrl + '/order/order-create.html', params, function (data) {
+                                data = JSON.parse(data);
+                                if(data.errFlag == 0){
+                                    window.location.href = rootUrl + '/order/orderSuccess.html?code=' + data.errMsg;
+                                }else if(data.errFlag == skuId){
+                                    alert(库存不足);
+                                }
+                            });
+                        });
 
-                                function getAddressList() {
-                                    Utils.ajaxJson(rootUrl + '/address/list', {}, function (data) {
-                                        data = JSON.parse(data);
-                                        $('#orderInfo-list').empty();
-                                        var html = '';
-                                        for (var i = 0; i < data.length; i++) {
-                                            var item = data[i];
-                                            if (item.defaultAddress == 1) {
-                                            	html += '<div class="radio selected"><label class="orderInfo-address">\
+                        function getAddressList() {
+                            Utils.ajaxJson(rootUrl + '/address/list', {}, function (data) {
+                                data = JSON.parse(data);
+                                $('#orderInfo-list').empty();
+                                var html = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    var item = data[i];
+                                    if (item.defaultAddress == 1) {
+                                        html += '<div class="radio selected"><label class="orderInfo-address">\
                                            	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">\
                                        		 <span class="address-list-name">' + item.name +'</span>\
                                        		 <span class="address-list-province" data-value="'+item.provinceId+'">' + item.province +'</span>\
@@ -402,8 +394,8 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                        	</label>\
                                        	<button type="button" class="btn btn-link address-single-edit">编辑</button>\
                                        	<button type="button" class="btn btn-link address-single-delete">删除</button></div>';
-                                            } else {
-                                            	html += '<div class="radio"><label class="orderInfo-address">\
+                                    } else {
+                                        html += '<div class="radio"><label class="orderInfo-address">\
                                               	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">\
                                                		 <span class="address-list-name">' + item.name +'</span>\
                                                		 <span class="address-list-province" data-value="'+item.provinceId+'">' + item.province +'</span>\
@@ -414,38 +406,36 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                                	</label>\
                                                	<button type="button" class="btn btn-link address-single-edit">编辑</button>\
                                                	<button type="button" class="btn btn-link address-single-delete">删除</button></div>';
-                                            }
-                                        }
-                                        $('#orderInfo-list').append(html);
-
-                                        $('[name=optionsRadios]').bind('click', function () {
-                                            $('[name=optionsRadios]').each(function () {
-                                                $(this).parent().parent().removeClass('selected');
-                                            });
-                                            $(this).parent().parent().addClass('selected');
-                                        });
-                                    });
+                                    }
                                 }
+                                $('#orderInfo-list').append(html);
 
-                                function buildSelect(levelId, id, contentId) {
-                                    Utils.ajaxJson(rootUrl + '/address/getCity', {
-                                        levelId: levelId,
-                                        id: id
-                                    }, function (data) {
-                                        data = JSON.parse(data);
-                                        if (data.errFlag == 1) {
-                                            var d = data.list;
-                                            var html = '';
-                                            for (var i = 0; i < d.length; i++) {
-                                                var item = d[i];
-                                                html += '<option value="' + item.id + '">' + item.name + '</option>';
-                                            }
-                                            $('#' + contentId).append(html);
-                                        }
+                                $('[name=optionsRadios]').bind('click', function () {
+                                    $('[name=optionsRadios]').each(function () {
+                                        $(this).parent().parent().removeClass('selected');
                                     });
+                                    $(this).parent().parent().addClass('selected');
+                                });
+                            });
+                        }
+
+                        function buildSelect(levelId, id, contentId) {
+                            Utils.ajaxJson(rootUrl + '/address/getCity', {
+                                levelId: levelId,
+                                id: id
+                            }, function (data) {
+                                data = JSON.parse(data);
+                                if (data.errFlag == 1) {
+                                    var d = data.list;
+                                    var html = '';
+                                    for (var i = 0; i < d.length; i++) {
+                                        var item = d[i];
+                                        html += '<option value="' + item.id + '">' + item.name + '</option>';
+                                    }
+                                    $('#' + contentId).append(html);
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 });
             }

@@ -103,7 +103,7 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                             imgCon = $('#forgetPsd_code_img');
 
                         //获取验证码的图片 接口
-                        imgCon[0].src = rootUrl+'/code.html';
+                        //imgCon[0].src = rootUrl+'/code.html';
 
                         $('#forgetPsd_code_img_change').click(function(){
                             Utils.ajaxGet(rootUrl+'/code.html',function(data){

@@ -26,7 +26,7 @@ define(['jquery','widget/utils'],function($,Utils){
         Utils.ajaxJson(rootUrl+'/member/login',params,function(data){
             data = JSON.parse(data);
             if(data.errFlag == 0){
-                window.location.href = 'index.html';
+                window.location.href = rootUrl+'/index.html';
                 $('#header-login-btn').parent().append('<a>'+userNameCon+'</a>');
                 $('#header-login-btn').remove();
             }else if(data.errFlag == -1){
@@ -36,7 +36,7 @@ define(['jquery','widget/utils'],function($,Utils){
                 psdCon.next().show();
                 return false;
             }else{
-                window.location.href = rootUrl+'/member/404.html';
+                window.location.href = rootUrl+'/404.html';
             }
         });
     });

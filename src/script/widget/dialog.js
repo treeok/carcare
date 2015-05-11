@@ -72,13 +72,13 @@ define(['jquery'],function($){
         },
         _reposition: function () {
             this.el.css({
-                top: (jqWIN.height() - this.el.height()) / 2 + jqWIN.scrollTop() - 256,
+                top: (document.body.scrollHeight - this.el.height()) / 2 + document.body.scrollTop - 356,
                 left: (jqWIN.width() - this.el.width()) / 2
             });
         },
         _show: function (d) {
             if(!$('body').find('.dialog_bg').length){
-                $('body').append('<div class="gray-bg dialog-bg" style="z-index: 1050;height:'+jqWIN.height()+'"></div>');
+                $('body').append('<div class="gray-bg dialog-bg" style="z-index: 1050;height:'+document.body.scrollHeight+'px"></div>');
             }
             function bgHeight(){
                 var bodyHeight = $(document).height();
