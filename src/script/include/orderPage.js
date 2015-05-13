@@ -92,16 +92,6 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
             </div>\
         </div>';
 
-
-    var _body = '<div id="registerSuc" class="form-container">\
-        <div class="form-group">\
-            <img src="img/ok.png" class="img-rounded">\
-            <span>恭喜你，成功注册车挣账号！</span>\
-        </div>\
-        <button id="register_success_index_btn" type="button" class="btn btn-lg btn-default btn-block">返回首页</button>\
-        <button id="register_success_purchase_btn" type="button" class="btn btn-lg btn-default btn-block">购买一台车挣</button>\
-        </div>';
-
     var singleRegister;
 
     var register = {
@@ -126,14 +116,14 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                         //用户地址的动态生成
                         getAddressList();
 
-                        Utils.ajaxJson(rootUrl + '/findSkuById', {id:skuId}, function (data) {
+                        Utils.ajaxJson(rootUrl + '/findSkuById', {id: skuId}, function (data) {
                             data = JSON.parse(data);
                             $('#address-goods-details').empty();
-                            var html = '<div class="media" style="margin: 15px 0;"><div class="media-left"><a href="#"><img class="media-object" src="'+data.upc+'">\
+                            var html = '<div class="media" style="margin: 15px 0;"><div class="media-left"><a href="#"><img class="media-object" src="' + data.upc + '">\
                                     		</a></div><div class="media-body">\
-                                            <h4 class="media-heading">'+data.specifications+'</h4>'+data.specifications+'</div></div>';
+                                            <h4 class="media-heading">' + data.specifications + '</h4>' + data.specifications + '</div></div>';
                             $('#address-goods-details').append(html);
-                            $('#address-goods-price').text('￥'+data.price);
+                            $('#address-goods-price').text('￥' + data.price);
                             $('#address-goods-quantity').text(quantity);
                         });
 
@@ -141,8 +131,7 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                             //provinceId:
                         };
 
-
-                        $('#address-submit').click(function(){
+                        $('#address-submit').click(function () {
 
                         });
 
@@ -164,18 +153,21 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                         detailCon = $('#address_dlg_detail');
 
 
-                                    buildSelect(1, 0, 'province');
-                                    buildSelect(2, 0, 'city');
-                                    buildSelect(3, 0, 'county');
-
-                                    $('#province').change(function () {
-                                        $('#city').empty();
-                                        var value = $(this).val();
-                                        buildSelect(2, value, 'city');
+                                    buildSelect(1, 0, 'province', function () {
+                                        var val1 = $('#province').val();
+                                        buildSelect(2, val1, 'city', function () {
+                                            var val2 = $('#city').val();
+                                            buildSelect(3, val2, 'county');
+                                        });
                                     });
-
+                                    $('#province').change(function () {
+                                        var val1 = $(this).val();
+                                        buildSelect(2, val1, 'city', function () {
+                                            var val2 = $('#city').val();
+                                            buildSelect(3, val2, 'county');
+                                        });
+                                    });
                                     $('#city').change(function () {
-                                        $('#county').empty();
                                         var value = $(this).val();
                                         buildSelect(3, value, 'county');
                                     });
@@ -206,10 +198,13 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                             name: userNameCon.val(),
                                             mobile: telCon.val(),
                                             provinceId: $('#province').val(),
+                                            province: $('#province').find('option:selected').text(),
                                             cityId: $('#city').val(),
+                                            city: $('#city').find('option:selected').text(),
                                             districtId: $('#county').val(),
-                                            defaultaddress: $('#address_dlg_default_address').val(),
-                                            district: $('#address_dlg_detail').val()
+                                            district: $('#county').find('option:selected').text(),
+                                            defaultAddress: $('#address_dlg_default_address').val(),
+                                            street: $('#address_dlg_detail').val()
                                         };
 
                                         Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
@@ -249,46 +244,42 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
 
                                     var userNameCon = $('#address_dlg_id'),
                                         telCon = $('#address_dlg_tel'),
-//                                                psdCon = $('#address_dlg_psd'),
                                         detailCon = $('#address_dlg_detail');
-
-
-                                    buildSelect(1, 0, 'province');
-                                    buildSelect(2, 0, 'city');
-                                    buildSelect(3, 0, 'county');
-
-                                    $('#province').change(function () {
-                                        $('#city').empty();
-                                        var value = $(this).val();
-                                        buildSelect(2, value, 'city');
-                                    });
-
-                                    $('#city').change(function () {
-                                        $('#county').empty();
-                                        var value = $(this).val();
-                                        buildSelect(3, value, 'county');
-                                    });
 
                                     Utils.ajaxJson(rootUrl + '/address/findAddressById', {id: id}, function (data) {
                                         data = JSON.parse(data);
                                         newDialog._show();
                                         userNameCon.val(data.name);
                                         telCon.val(data.mobile);
-                                        $('#province  option[value="'+ data.provinceId +'"] ').attr("selected",true);
-                                        $('#city  option[value="'+ data.cityId +'"] ').attr("selected",true);
-                                        $('#county  option[value="'+ data.districtId +'"] ').attr("selected",true);
-                                        document.getElementById("address_dlg_default_address").value = data.defaultAddress;
-                                        $('#address_dlg_detail').val(data.district);
+                                        buildSelect(1, 0, 'province', function () {
+                                            $('#province').val(data.provinceId);
+                                            var val1 = $('#province').val();
+                                            buildSelect(2, val1, 'city', function () {
+                                                $('#city').val(data.cityId);
+                                                var val2 = $('#city').val();
+                                                buildSelect(3, val2, 'county', function () {
+                                                    $('#county').val(data.districtId);
+                                                });
+                                            });
+                                        });
+                                        $('#province').change(function () {
+                                            var val1 = $(this).val();
+                                            buildSelect(2, val1, 'city', function () {
+                                                var val2 = $('#city').val();
+                                                buildSelect(3, val2, 'county');
+                                            });
+                                        });
+                                        $('#city').change(function () {
+                                            var value = $(this).val();
+                                            buildSelect(3, value, 'county');
+                                        });
+                                        if (data.defaultAddress == 1) {
+                                            $('#address_dlg_default_address').find('option:first').attr('selected', 'selected');
+                                        } else {
+                                            $('#address_dlg_default_address').find('option:last').attr('selected', 'selected');
+                                        }
+                                        $('#address_dlg_detail').val(data.street);
 
-                                        var params = {
-                                            name: userNameCon.val(),
-                                            mobile: telCon.val(),
-                                            provinceId: $('#province').val(),
-                                            cityId: $('#city').val(),
-                                            districtId: $('#county').val(),
-                                            defaultaddress: $('#address_dlg_default_address').val(),
-                                            district: $('#address_dlg_detail').val()
-                                        };
                                         $('#address_dlg_save').click(function () {
                                             if (userNameCon.val() == '') {
                                                 userNameCon.next().show();
@@ -315,10 +306,14 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                                 name: userNameCon.val(),
                                                 mobile: telCon.val(),
                                                 provinceId: $('#province').val(),
+                                                province: $('#province').find('option:selected').text(),
                                                 cityId: $('#city').val(),
+                                                city: $('#city').find('option:selected').text(),
                                                 districtId: $('#county').val(),
-                                                defaultaddress: $('#address_dlg_default_address').val(),
-                                                district: $('#address_dlg_detail').val()
+                                                district: $('#county').find('option:selected').text(),
+                                                defaultAddress: $('#address_dlg_default_address').val(),
+                                                street: $('#address_dlg_detail').val(),
+                                                id: id
                                             };
 
                                             Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
@@ -354,22 +349,22 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                             });
                         });
 
-                        $('#address-submit').click(function(){
+                        $('#address-submit').click(function () {
                             var params = {};
                             params.provinceId = $('#orderInfo-list').find('.selected .address-list-province').attr('data-value');
                             params.cityId = $('#orderInfo-list').find('.selected .address-list-city').attr('data-value');
                             params.areaId = $('#orderInfo-list').find('.selected .address-list-county').attr('data-value');
-                            params.address = $('#orderInfo-list').find('.selected .address-list-province').text() + $('#orderInfo-list').find('.selected .address-list-city').text() + $('#orderInfo-list').find('.selected .address-list-county').text() + $('#orderInfo-list').find('.selected .address-list-detail-address').text();;
+                            params.address = $('#orderInfo-list').find('.selected .address-list-province').text() + $('#orderInfo-list').find('.selected .address-list-city').text() + $('#orderInfo-list').find('.selected .address-list-county').text() + $('#orderInfo-list').find('.selected .address-list-detail-address').text();
                             params.name = $('#orderInfo-list').find('.selected .address-list-name').text();
                             params.mobile = $('#orderInfo-list').find('.selected .address-list-mobile').text();
                             params.paymentType = 1;
-                            params.tradeItem = skuId+':'+quantity;
+                            params.tradeItem = skuId + ':' + quantity;
 
                             Utils.ajaxJson(rootUrl + '/order/order-create.html', params, function (data) {
                                 data = JSON.parse(data);
-                                if(data.errFlag == 0){
+                                if (data.errFlag == 0) {
                                     window.location.href = rootUrl + '/order/orderSuccess.html?code=' + data.errMsg;
-                                }else if(data.errFlag == skuId){
+                                } else if (data.errFlag == skuId) {
                                     alert(库存不足);
                                 }
                             });
@@ -383,30 +378,21 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                 for (var i = 0; i < data.length; i++) {
                                     var item = data[i];
                                     if (item.defaultAddress == 1) {
-                                        html += '<div class="radio selected"><label class="orderInfo-address">\
+                                        html += '<div class="radio selected">';
+                                    } else {
+                                        html += '<div class="radio">';
+                                    }
+                                    html += '<label class="orderInfo-address">\
                                            	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">\
-                                       		 <span class="address-list-name">' + item.name +'</span>\
-                                       		 <span class="address-list-province" data-value="'+item.provinceId+'">' + item.province +'</span>\
-                                       		 <span class="address-list-city" data-value="'+item.cityId+'">'+ item.city +'</span>\
-                                       		 <span  class="address-list-county" data-value="'+item.districtId+'">'+ item.district +'</span>\
-                                       		 <span class="address-list-detail-address">'+item.district + '</span>\
-                                       		 <span class="address-list-mobile">'+item.mobile + '</span>\
+                                       		 <span class="address-list-name">' + item.name + '</span>\
+                                       		 <span class="address-list-province" data-value="' + item.provinceId + '">' + item.province + '</span>\
+                                       		 <span class="address-list-city" data-value="' + item.cityId + '">' + item.city + '</span>\
+                                       		 <span  class="address-list-county" data-value="' + item.districtId + '">' + item.district + '</span>\
+                                       		 <span class="address-list-detail-address">' + item.district + '</span>\
+                                       		 <span class="address-list-mobile">' + item.mobile + '</span>\
                                        	</label>\
                                        	<button type="button" class="btn btn-link address-single-edit">编辑</button>\
                                        	<button type="button" class="btn btn-link address-single-delete">删除</button></div>';
-                                    } else {
-                                        html += '<div class="radio"><label class="orderInfo-address">\
-                                              	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">\
-                                               		 <span class="address-list-name">' + item.name +'</span>\
-                                               		 <span class="address-list-province" data-value="'+item.provinceId+'">' + item.province +'</span>\
-                                               		 <span class="address-list-city" data-value="'+item.cityId+'">'+ item.city +'</span>\
-                                               		 <span  class="address-list-county" data-value="'+item.districtId+'">'+ item.district +'</span>\
-                                               		 <span class="address-list-detail-address">'+item.district + '</span>\
-                                               		 <span class="address-list-mobile">'+item.mobile + '</span>\
-                                               	</label>\
-                                               	<button type="button" class="btn btn-link address-single-edit">编辑</button>\
-                                               	<button type="button" class="btn btn-link address-single-delete">删除</button></div>';
-                                    }
                                 }
                                 $('#orderInfo-list').append(html);
 
@@ -419,11 +405,12 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                             });
                         }
 
-                        function buildSelect(levelId, id, contentId) {
+                        function buildSelect(levelId, id, contentId, callback) {
                             Utils.ajaxJson(rootUrl + '/address/getCity', {
                                 levelId: levelId,
                                 id: id
                             }, function (data) {
+                                $('#' + contentId).empty();
                                 data = JSON.parse(data);
                                 if (data.errFlag == 1) {
                                     var d = data.list;
@@ -433,6 +420,7 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                         html += '<option value="' + item.id + '">' + item.name + '</option>';
                                     }
                                     $('#' + contentId).append(html);
+                                    callback && callback();
                                 }
                             });
                         }

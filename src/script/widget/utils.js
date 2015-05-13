@@ -40,6 +40,10 @@ define(['jquery'],function($){
             var reg = /^(?![a-z]+$)(?![A-Z]+$)(?![0-9]+$)[0-9a-zA-Z\W]\S{7,16}$/;
             return str.match(reg);
         },
+        mailRegx:function(str){
+            var reg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+            return str.match(reg);
+        },
         getCookie:function(name){
             var cookieName = encodeURIComponent(name) + "=",
                 cookieStart = document.cookie.indexOf(cookieName),

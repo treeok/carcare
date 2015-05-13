@@ -10,6 +10,18 @@ define(['jquery','widget/utils'],function($,Utils){
     var psdCon = $('#login_login_psd');
 
     $('#login_login_btn').click(function(){
+        login();
+    });
+
+    $('#login_forgetPsd_btn').click(function(){
+        window.location.href = rootUrl+'/member/forgetPsd.html';
+    });
+
+    $('#login_register_btn').click(function(){
+        window.location.href = rootUrl+'/member/register.html';
+    });
+
+    function login(){
         if(userNameCon.val() == ''){
             userNameCon.next().next().show();
             return false;
@@ -39,13 +51,11 @@ define(['jquery','widget/utils'],function($,Utils){
                 window.location.href = rootUrl+'/404.html';
             }
         });
-    });
+    }
 
-    $('#login_forgetPsd_btn').click(function(){
-        window.location.href = rootUrl+'/member/forgetPsd.html';
-    });
-
-    $('#login_register_btn').click(function(){
-        window.location.href = rootUrl+'/member/register.html';
-    });
+    /*function on_return(){
+        if(window.event.keyCode == 13){
+            login();
+        }
+    }*/
 });

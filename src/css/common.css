@@ -94,6 +94,138 @@
     width: 300px;
     cursor: pointer;
 }
+.check-order-list:hover{
+    border-color: red;
+}
 .default{
     border-color: red;
+}
+#buttons-menu{
+    position: relative;
+    right: -15px;
+}
+#buttons-menu .header-name{
+    font-size: 15px;
+    font-weight: normal;
+    padding: 17px 5px;
+}
+#buttons-menu .btn-exit{
+    padding-left: 5px;
+    margin-top: 0;
+}
+#buttons-menu #header-login-btn,#buttons-menu #header-register-btn{
+    margin-top: 10px;
+}
+#select-model-details{
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 16px;
+    margin-top: 9px;
+    font-family: 微软雅黑;
+    color: #333;
+}
+#select-model-details.active{
+    color: red;
+}
+.car-logo{
+    display:inline-block;
+    margin-left:45px;
+    width: 40px;
+    border: 0;
+    vertical-align: middle;
+}
+#select-brand-lists .select-brand-list{
+    width: 204px;
+    height: 50px;
+    border: 1px solid #ddd;
+    float: left;
+    margin-right: 50px;
+    margin-top: 11px;
+    line-height: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #666;
+    font-weight: 700;
+    font-family: 微软雅黑;
+    margin-bottom: 30px;
+}
+#select-brand-lists .select-brand-list:hover{
+    border: 1px solid red;
+}
+#select-brand-lists .select-brand-list.active{
+    border: 1px solid red;
+}
+#selectModelLists .select-model-list{
+    font-family: '微软雅黑';
+    width: 140px;
+    height: 40px;
+    margin-left: 0;
+    margin-right: 14px;
+    border: 1px solid #ddd;
+    float: left;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 0;
+    color: #666;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+#selectModelLists .select-model-list:hover{
+    border: 1px solid red;
+}
+#selectModelLists .select-model-list.active{
+    border: 1px solid red;
+}
+#selectStyleLists {
+    height: 600px;
+    overflow-y: auto;
+}
+#selectStyleLists .select-style-list{
+    font-family: '微软雅黑';
+    width: 240px;
+    height: 40px;
+    margin-left: 0;
+    margin-right: 14px;
+    border: 1px solid #ddd;
+    float: left;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 0;
+    color: #666;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+#selectStyleLists .select-style-list:hover{
+    border: 1px solid red;
+}
+#selectStyleLists .select-style-list.active{
+    border: 1px solid red;
+}
+#selectModelTitle{
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 微软雅黑;
+    color: #333;
+    text-align: left;
+    margin-top: -15px;
+}
+#selectStyleTitle{
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 微软雅黑;
+    color: #333;
+    text-align: left;
+    margin-top: -15px;
+}
+#selectModelTitle .select-brand,#selectModelTitle .select-model{
+    color: red;
+    margin-right: 15px;
+}
+#selectStyleTitle .select-brand,#selectStyleTitle .select-model{
+    color: red;
+    margin-right: 15px;
 }

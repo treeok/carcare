@@ -3,8 +3,18 @@
     box-shadow: 0 0 10px #333;}
 .dialog-head{position: relative; padding: 10px; border-bottom: 2px solid #f4f4f4; height: 40px;}
 .dia-title{font-size: 16px; font-weight: bold; line-height: 1.5; color: #000;}
-.close-ico{position: absolute; top:13px; right: 10px; color: #ff7e00; font-weight: bold; cursor: pointer;
-    height: 16px; width: 16px; background: url(img/close-ico.png) 0 0 no-repeat; text-indent: -100px; overflow: hidden;}
+.close-ico{position: absolute;
+    top: 13px;
+    right: 10px;
+    color: #ff7e00;
+    font-weight: 700;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    text-indent: -0px;
+    margin-top: -20px;
+   }
 .close-ico:hover{background-position: 0 -20px;}
 .dialog-con{padding: 20px 40px 40px;}
 .dia-sub-tip .dia-st-tip,

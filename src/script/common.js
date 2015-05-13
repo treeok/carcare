@@ -20,6 +20,11 @@ var mstmpl = function (str, data) {
 };
 
 require(['jquery','widget/utils'], function ($,Utils) {
+    $('#offical-wechart').mouseover(function(){
+        $('#offical-wechart-code').show();
+    }).mouseleave(function(){
+        $('#offical-wechart-code').hide();
+    });
     var urlArray = document.URL.split('/'),
         docName = urlArray[urlArray.length-1].split('.')[0];
 
@@ -77,13 +82,16 @@ require(['jquery','widget/utils'], function ($,Utils) {
         	$('#alipaysubmit').submit();
         });
     }else if(docName=='subscribe'){
-        $('#phoneCodeButton').click(function(){
-            Utils.ajaxGet(rootUrl+'/code.html',function(data){
-                $('#phoneCodeButton')[0].src = rootUrl+'/code.html';
-            });
+        require(['include/subscribePage'], function (SubscribePage) {
+
         });
+
     }else if(docName=='checkOrder'){
         require(['include/checkOrderPage'], function (checkOrderPage) {
+
+        });
+    }else if(docName=='selectModel'){
+        require(['include/selectModelPage'], function (SelectModelPage) {
 
         });
     }
