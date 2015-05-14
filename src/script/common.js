@@ -55,9 +55,9 @@ require(['jquery','widget/utils'], function ($,Utils) {
             $(this).removeClass('active');
         });
         $('#header').find('li:first').addClass('active');
-        require(['include/index'], function (Index) {
+        /*require(['include/index'], function (Index) {
 
-        });
+        });*/
     } else if(docName=='carlist'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');

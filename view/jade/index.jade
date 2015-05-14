@@ -9,6 +9,33 @@ html
       include include/loads.jade
    body
       include include/header.jade
+      #carousel-example-generic.carousel.slide(data-ride="carousel" style="margin-top:96px;")
+         ol.carousel-indicators
+            li.active(data-target="#carousel-example-generic", data-slide-to="0")
+            li(data-target="#carousel-example-generic", data-slide-to="1")
+            li(data-target="#carousel-example-generic", data-slide-to="2")
+         // Wrapper for slides
+         .carousel-inner(role="listbox")
+            .item.active
+               img(src="img/envir.png", alt="车挣环保日")
+               .carousel-caption
+                  .pull-right
+                     button(type="button" class="btn btn-primary") 免费预约
+            .item
+               img(src="img/surrender.png", alt="反保费")
+               .carousel-caption
+               | ...
+            .item
+               img(src="img/welfare.png", alt="车挣福利")
+               .carousel-caption
+               | ...
+         // Controls
+         a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+            span.sr-only Previous
+         a.right.carousel-control(href="#carousel-example-generic", role="button", data-slide="next")
+            span.glyphicon.glyphicon-chevron-right(aria-hidden="true")
+            span.sr-only Next
       div(style="background-color:#fff;height:710px;font-size:16px;")
          .container(style="height:710px;vertical-align: middle;")
             .index-title(style="margin-top:0;")

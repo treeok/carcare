@@ -337,5 +337,7 @@ div.th {
 }
 .index-body{
    display: inline-block;
-
+}
+.carousel-caption{
+   top:50px;
 }
