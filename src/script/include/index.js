@@ -1,26 +1,29 @@
 /**
  * Created by claire on 2015/4/21.
  */
-require(['widget/banner'],function(Banner){
+require(['jquery', 'widget/utils','widget/banner'],function($,Utils,Banner){
     var _content = '<li style="background-image: url(http://www.bootcss.com/p/unslider/img/sunset.jpg);">\
      <div class="inner">\
      <h1>first one</h1>\
      <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-     <a class="btn" href="#download">下载</a>\
+     <a class="btn" href="#download">免费预约</a>\
      </div>\
-     </li><li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
+     </li>\
+     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
      <div class="inner">\
      <h1>first two</h1>\
      <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
      <a class="btn" href="#download">下载</a>\
      </div>\
-     </li><li style="background-image: url(http://www.bootcss.com/p/unslider/img/shop.jpg);">\
+     </li>\
+     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/shop.jpg);">\
      <div class="inner">\
      <h1>first three</h1>\
      <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
      <a class="btn" href="#download">下载</a>\
      </div>\
-     </li><li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
+     </li>\
+     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
      <div class="inner">\
      <h1>first four</h1>\
      <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\

@@ -29,23 +29,24 @@ require(['jquery','widget/utils'], function ($,Utils) {
         docName = urlArray[urlArray.length-1].split('.')[0];
 
     if(docName=='login'||docName=='prelogin'){
-
         require(['include/loginPage'], function (LoginPage) {
-
         });
     }else if(docName=='register'){
         require(['include/registerPage'], function (RegisterPage) {
-
         });
     }else if(docName=='forgetPsd'){
         require(['include/forgetPsdPage'], function (ForgetPsdPage) {
-
         });
     }else if(docName=='orderInfo'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
         require(['include/orderPage'], function (OrderPage) {
-
         });
     }else if(docName=='purchase'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
         require(['include/purchasePage'], function (PurchasePage) {
 
         });
@@ -54,7 +55,7 @@ require(['jquery','widget/utils'], function ($,Utils) {
             $(this).removeClass('active');
         });
         $('#header').find('li:first').addClass('active');
-        require(['widget/stickUp'], function (StickUp) {
+        require(['include/index'], function (Index) {
 
         });
     } else if(docName=='carlist'){
@@ -62,7 +63,7 @@ require(['jquery','widget/utils'], function ($,Utils) {
             $(this).removeClass('active');
         });
         $('#header').find('li').eq(1).addClass('active');
-        require(['widget/stickUp'], function (StickUp) {
+        require(['include/carlistPage'], function (CarlistPage) {
 
         });
     }else if(docName=='install'){
@@ -78,21 +79,29 @@ require(['jquery','widget/utils'], function ($,Utils) {
         $('#header').find('li').eq(3).addClass('active');
 
     }else if(docName=='orderSuccess'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
         $('#order-success-pay').click(function (){
         	$('#alipaysubmit').submit();
         });
     }else if(docName=='subscribe'){
-        require(['include/subscribePage'], function (SubscribePage) {
-
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
         });
-
+        require(['include/subscribePage'], function (SubscribePage) {
+        });
     }else if(docName=='checkOrder'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
         require(['include/checkOrderPage'], function (checkOrderPage) {
-
         });
     }else if(docName=='selectModel'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
         require(['include/selectModelPage'], function (SelectModelPage) {
-
         });
     }
 });

@@ -7,8 +7,45 @@ html
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       link(type="text/css",rel="stylesheet",href="./css/module/banner.css")
       include include/loads.jade
-      script(src="./script/index.js")
    body
       include include/header.jade
-      p hello world
+      div(style="background-color:#fff;height:710px;font-size:16px;")
+         .container(style="height:710px;vertical-align: middle;")
+            .index-title(style="margin-top:0;")
+               div.text-left(style="margin:25px auto 25px 0;font-size:30px;") 即使不开车也有补贴
+               p.text-left 车险按年交、车船税按年交，但车不是天天都开呀。
+               p.text-left 限行限号什么的更是没得商量。
+               p.text-left 现在好了，车挣来补贴。
+               p.text-left 只要一整天（零点到二十四点）不用车，
+               p.text-left 最高补贴1000个挣点，一年最多100天。
+            .index-body(style="margin-top:80px;margin-left:40px;")
+               div(style="height:507px;width:656px;margin:auto;")
+                 img(src="img/allowance.png")
+      div(style="background-color:#f4f4f4;height:730px;vertical-align: middle;font-size:16px;")
+         .container-fluid(style="height:730px;")
+               .index-header(style="margin-top:50px;")
+                  div.text-center(style="margin:25px auto;font-size:30px;") 驾驶优秀必须奖励
+                  p.text-center 超速、急加速、急刹车、急转弯、夜间驾驶、疲劳驾驶这些都是扣分滴。
+                  p.text-center 现在只要单天综合得分在90分以上。即可获得最高1000个挣点补贴，1年最多100天
+               .index-body(style="display:block;")
+                  div(style="margin:auto;width:411px;height:568px;")
+                    img(src="img/drive.png")
+      div(style="background-color:#fff;height:710px;vertical-align: middle;")
+         .container(style="height:710px;")
+               .index-body(style="margin-top:33px;")
+                  img(src="img/mileage.png")
+               .index-title
+                  div.text-left(style="margin:25px auto 25px 0;font-size:30px;") 里程更是可以积累奖励
+                  p.text-left 1公里=1个挣点   车酒店有会员积分、飞机有常旅
+                  p.text-left 客，高铁好像也快有积分计划了
+                  p.text-left 高大上的私家车主怎能少
+                  p.text-left 现在使用车挣，一年最多可积累20000公里
+      div(style="background-color:#f4f4f4;height:780px;vertical-align: middle;font-size:16px;")
+         .container(style="height:780px;")
+               .index-header(style="margin-top:50px;")
+                  div.text-center(style="margin:25px auto;font-size:30px;") 邀请好友加入车挣
+                  p.text-center 推荐朋友成功安装，最高可获得999个挣点
+               .index-body(style="display:block;")
+                  div(style="margin:20px auto 50px;width:651px;height:562px;")
+                    img(src="img/invite.png")
       include include/footer.jade
