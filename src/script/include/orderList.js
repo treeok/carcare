@@ -78,7 +78,7 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
             getOrderList(Number(val) - 1, 5);
         }
     });
-    getCheckOrderAddressList();
+    getAddressList();
 
     //新增地址
     $('#check-order-add-address').click(function () {
@@ -155,7 +155,7 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
                         data = JSON.parse(data);
                         if (data.errFlag == 0) {
                             alert('地址添加成功');
-                            getCheckOrderAddressList();
+                            getAddressList();
                             newDialog1._close();
                         } else {
                             alert('地址添加错误');
@@ -259,7 +259,7 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
                             data = JSON.parse(data);
                             if (data.errFlag == 0) {
                                 alert('地址修改成功');
-                                getCheckOrderAddressList();
+                                getAddressList();
                                 newDialog._close();
                             } else {
                                 alert('地址修改失败');
@@ -284,7 +284,7 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
             data = JSON.parse(data);
             if (data.errFlag == 0) {
                 alert('删除成功');
-                getCheckOrderAddressList();
+                getAddressList();
             }
         });
     });
@@ -309,7 +309,7 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
         });
     }
 
-    function getCheckOrderAddressList() {
+    function getAddressList() {
         Utils.ajaxJson(rootUrl + '/address/list', {}, function (data) {
             data = JSON.parse(data);
             $('#check-order-address-lists').empty();

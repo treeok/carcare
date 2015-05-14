@@ -3,7 +3,7 @@
  */
 define(['jquery', 'widget/utils'], function ($, Utils) {
     var content = $('#carlist-content');
-    Utils.ajaxJson('http://10.8.6.127:8080/carcare-web-homesite/suit/suitCarList',{},function(data){
+    Utils.ajaxJson(rootUrl+'/suit/suitCarList',{},function(data){
         data = JSON.parse(data);
         content.empty();
         if (data.errFlag == 0) {

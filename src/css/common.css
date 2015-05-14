@@ -79,8 +79,8 @@
     margin: 15px;
 }
 #search-store{
-    background-color: #666666;
     padding: 9px 48px;
+    margin-left:15px;
 }
 #purchase_body a{
     display: inline-block;
@@ -339,5 +339,11 @@ div.th {
    display: inline-block;
 }
 .carousel-caption{
-   top:50px;
+    bottom:150px;
+    left: 0;
+}
+#videoModal .modal-header {
+    min-height: 0;
+    padding: 15px;
+    border-bottom: none;
 }

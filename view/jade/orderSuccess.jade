@@ -18,18 +18,10 @@ html
             div(style="margin:30px;margin-left:60px;")
                div(style="margin-left:70px;margin-bottom:15px;")
                  span#order-success-orderNo 订单编号：**********
-                 button.pull-right(type="button" class="btn btn-link") 查看订单
+                 button.pull-right#check-order-lists(type="button" class="btn btn-link") 查看订单
                div(style="margin-left:70px;margin-bottom:15px;")
                  p#order-success-delivery-address 配送地址：**********
                button(type="button" class="btn btn-primary" style="margin-left:70px;") 付款成功后，七天内发货
-         p(style="margin:15px 43px;") 选择付款方式
-         .row(style="border:1px solid #acacac;padding: 30px;")
-            label(style="margin-left:23px;")
-              input(type="radio" name="select-pay-way" id="1")
-              img(src="img/alipay-code.png")
-            label(style="margin-left:15px;")
-               input(type="radio" name="select-pay-way" id="2")
-               img(src="img/alipay-alipay.png")
          .row(style="margin-top:30px;")
             div.pull-right
                button#order-success-change-order(type="button" class="btn btn-primary") 修改订单

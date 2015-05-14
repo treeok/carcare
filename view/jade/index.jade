@@ -19,16 +19,15 @@ html
             .item.active
                img(src="img/envir.png", alt="车挣环保日")
                .carousel-caption
-                  .pull-right
-                     button(type="button" class="btn btn-primary") 免费预约
+                  #index-entrance-btns
             .item
                img(src="img/surrender.png", alt="反保费")
                .carousel-caption
-               | ...
+                  #index-video
+                     button#index-video-btn(type="button" class="btn btn-primary" data-toggle="modal" data-target="#videoModal") 查看视频
             .item
                img(src="img/welfare.png", alt="车挣福利")
                .carousel-caption
-               | ...
          // Controls
          a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
             span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
@@ -75,4 +74,13 @@ html
                .index-body(style="display:block;")
                   div(style="margin:20px auto 50px;width:651px;height:562px;")
                     img(src="img/invite.png")
+      #videoModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true" style="margin-top:150px;")
+         .modal-dialog(style="width:900px;")
+            .modal-header
+               button.close(type="button", data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true" class="glyphicon glyphicon-remove-circle" style="color:#14a1e0;font-weight:bold;")
+            .modal-body
+               div(style="height:500px;margin:auto;")
+                  script(src="http://api.video.taobao.com//video/getPlayerJS")
+                  script(src="http://api.video.taobao.com//video/embedVideo?vid=22415343&uid=26724952&tid=1&autoplay=false")
       include include/footer.jade

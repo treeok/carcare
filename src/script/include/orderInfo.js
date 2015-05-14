@@ -378,13 +378,13 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                 for (var i = 0; i < data.length; i++) {
                                     var item = data[i];
                                     if (item.defaultAddress == 1) {
-                                        html += '<div class="radio selected">';
+                                        html += '<div class="radio selected"><label class="orderInfo-address">\
+                                      	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">';
                                     } else {
-                                        html += '<div class="radio">';
+                                        html += '<div class="radio"><label class="orderInfo-address">\
+                                      	     <input type="radio" name="optionsRadios" value="' + item.id + '">';
                                     }
-                                    html += '<label class="orderInfo-address">\
-                                           	     <input type="radio" name="optionsRadios" value="' + item.id + '" checked="">\
-                                       		 <span class="address-list-name">' + item.name + '</span>\
+                                    html += '<span class="address-list-name">' + item.name + '</span>\
                                        		 <span class="address-list-province" data-value="' + item.provinceId + '">' + item.province + '</span>\
                                        		 <span class="address-list-city" data-value="' + item.cityId + '">' + item.city + '</span>\
                                        		 <span  class="address-list-county" data-value="' + item.districtId + '">' + item.district + '</span>\

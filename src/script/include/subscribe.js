@@ -106,6 +106,8 @@ define(['jquery','widget/utils','widget/dialog'],function($,Utils,Dialog){
                 });
             }
         });
+
+
     });
 
     function getBrand(url,params,callback){

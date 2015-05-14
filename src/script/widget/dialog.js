@@ -12,7 +12,7 @@ define(['jquery'],function($){
         <% } else { %>\
         <%=customTitle%> \
         <% } %>\
-        <em class="close-ico" id="close_<%=index%>"><img src="img/dlg-close.png"></em>\
+        <em class="close-ico" id="close_<%=index%>"><img src="<%=static_domain%>/img/dlg-close.png"></em>\
       </div>\
       <div class="dialog-con" style="<%=textStyle%>">\
         <form action="">\
@@ -33,6 +33,7 @@ define(['jquery'],function($){
             body:opt.body||'',
             bottom:opt.bottom||'',
             index:_index,
+            static_domain: static_domain,
             zIndex:zIndex++,
             titleStyle:opt.titleStyle,
             customTitle:opt.customTitle,

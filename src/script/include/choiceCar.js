@@ -22,7 +22,7 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
 
     var title3 = '<p style="font-weight: 700;font-size: 16px;font-family: 微软雅黑;color: #333;text-align: left;margin-top: -15px;">车型确认：</p>';
 
-    Utils.ajaxJson('http://10.8.6.127:8080/carcare-web-homesite/subscribe/selectBrands', {}, function (data) {
+    Utils.ajaxJson(rootUrl+'/suit/suitBrands', {}, function (data) {
         data = JSON.parse(data);
         if(data.errFlag == 0){
             var html = '';
@@ -31,9 +31,33 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                 html += '<div class="select-brand-list" data-value="' + item.brandId + '"><img class="car-logo" src="' + item.brandImg + '"><span style="margin-left:15px;display;inline-block;">' + item.brandName + '</span></div>';
             }
             $('#select-brand-lists').append(html);
+            
+            Utils.ajaxJson(rootUrl+'/getSubscribeInfo', {}, function (data) {
+                data = JSON.parse(data);
+                if(data.errFlag == 1 && data.subinfo){
+                	var styleId = data.subinfo.STYLEID;
+                	Utils.ajaxJson(rootUrl+'/suit/suitCarInfo', {styleId:styleId}, function (data) {
+                        data = JSON.parse(data);
+                        if(data.errFlag == 1 ){
+                        	$('#select-model-details').addClass('active').text(data.data.brandName+'　'+ data.data.modelName +'　'+data.data.styleName).attr('data-styleId',styleId);
+                        	$('#select-brand-lists').find('.select-brand-list').each(function(){
+                                $(this).removeClass('active');
+                                var dataVal = $(this).attr('data-value');
+                                if(dataVal == data.data.brandId){
+                                	$(this).addClass('active');
+                                }
+                            });
+                            
+                        }
+                    });
+                }
+            });
+            
             callback();
         }
     });
+
+    
 
     function callback(){
         $('#select-brand-lists').find('.select-brand-list').each(function(){
@@ -53,7 +77,7 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                     width: 700,
                     afterRender: function () {
                         $('#selectModelTitle').find('.select-brand').text(brandName);
-                        Utils.ajaxJson('http://10.8.6.127:8080/carcare-web-homesite/subscribe/suitCarModel', {brandId:brandId}, function (data) {
+                        Utils.ajaxJson(rootUrl+'/suit/suitCarModel', {brandId:brandId}, function (data) {
                             data = JSON.parse(data);
                             if(data.errFlag == 0){
                                 var html = '';
@@ -94,7 +118,7 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
 
                         $('#selectStyleTitle').find('.select-model').text(modelName);
 
-                        Utils.ajaxJson('http://10.8.6.127:8080/carcare-web-homesite/subscribe/suitCarStyle', {modelId:modelId}, function (data) {
+                        Utils.ajaxJson(rootUrl+'/suit/suitCarStyle', {modelId:modelId}, function (data) {
                             data = JSON.parse(data);
                             if(data.errFlag == 1){
                                 var arr = [];
@@ -140,7 +164,14 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                 title: title3,
                 width: 700,
                 afterRender: function () {
-                    $('#confirm-models').text($('#select-model-details').text());
+                    $('#confirm-models').text($('#select-model-details').text()).attr('data-styleId',$('#select-model-details').attr('data-styleId'));
+                    $('#confirm-models-ok').click(function(){
+                    	var styleId = $('#confirm-models').attr('data-styleId');
+                    	window.location.href = rootUrl + '/purchase.html?styleId='+styleId;
+                    });
+                    $('#confirm-models-cancel').click(function(){
+                    	newDialog3._close();
+                    });
                 }
             });
         }

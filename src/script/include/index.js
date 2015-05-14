@@ -1,40 +1,23 @@
 /**
  * Created by claire on 2015/4/21.
  */
-require(['jquery', 'widget/utils','widget/banner'],function($,Utils,Banner){
-    var _content = '<li style="background-image: url(http://www.bootcss.com/p/unslider/img/sunset.jpg);">\
-     <div class="inner">\
-     <h1>first one</h1>\
-     <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-     <a class="btn" href="#download">免费预约</a>\
-     </div>\
-     </li>\
-     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
-     <div class="inner">\
-     <h1>first two</h1>\
-     <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-     <a class="btn" href="#download">下载</a>\
-     </div>\
-     </li>\
-     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/shop.jpg);">\
-     <div class="inner">\
-     <h1>first three</h1>\
-     <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-     <a class="btn" href="#download">下载</a>\
-     </div>\
-     </li>\
-     <li style="background-image: url(http://www.bootcss.com/p/unslider/img/wood.jpg);">\
-     <div class="inner">\
-     <h1>first four</h1>\
-     <p>就是这个不到3kb的插件！没有奇特的特效或无用的标签。</p>\
-     <a class="btn" href="#download">下载</a>\
-     </div>\
-     </li>';
-    var _prev = $('header');
-    new Banner({
-        prev:_prev,
-        content: _content,
-        speed:12000
+require(['jquery', 'widget/utils'],function($,Utils){
+    Utils.ajaxJson(rootUrl+'/switchTime',{},function(data){
+        data = JSON.parse(data);
+        if(data.errFlag == 0){
+            $('#index-entrance-btns').empty();
+            $('#index-entrance-btns').append('<button id="index-entrance-purchase" type="button" class="btn btn-primary">立即购买</button>');
+            $('#index-entrance-purchase').click(function(){
+                window.location.href = rootUrl+'/selectModel.html';
+            });
+        }else if(data.errFlag == 1){
+            $('#index-entrance-btns').empty();
+            $('#index-entrance-btns').append('<button id="index-entrance-order" type="button" class="btn btn-primary">免费预约</button>');
+            $('#index-entrance-order').click(function(){
+                window.location.href = rootUrl+'/subscribe/subscribe.html'
+            });
+        }
+
     });
 
 });

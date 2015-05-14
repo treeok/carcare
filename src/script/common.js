@@ -29,42 +29,39 @@ require(['jquery','widget/utils'], function ($,Utils) {
         docName = urlArray[urlArray.length-1].split('.')[0];
 
     if(docName=='login'||docName=='prelogin'){
-        require(['include/loginPage'], function (LoginPage) {
+        require(['include/login'], function (Login) {
         });
     }else if(docName=='register'){
-        require(['include/registerPage'], function (RegisterPage) {
+        require(['include/register'], function (Register) {
         });
-    }else if(docName=='forgetPsd'){
-        require(['include/forgetPsdPage'], function (ForgetPsdPage) {
+    }else if(docName=='resetpwd'){
+        require(['include/resetPwd'], function (ResetPwd) {
         });
-    }else if(docName=='orderInfo'){
+    }else if(docName=='orderinfo'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
-        require(['include/orderPage'], function (OrderPage) {
+        require(['include/orderInfo'], function (OrderInfo) {
         });
     }else if(docName=='purchase'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
-        require(['include/purchasePage'], function (PurchasePage) {
-
+        require(['include/purchase'], function (Purchase) {
         });
-    }else if(docName=='index'){
+    }else if(docName=='index'||docName=='loginout'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
         $('#header').find('li:first').addClass('active');
-        /*require(['include/index'], function (Index) {
-
-        });*/
+        require(['include/index'], function (Index) {
+        });
     } else if(docName=='carlist'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
         $('#header').find('li').eq(1).addClass('active');
-        require(['include/carlistPage'], function (CarlistPage) {
-
+        require(['include/carlist'], function (Carlist) {
         });
     }else if(docName=='install'){
         $('#header').find('li').each(function(){
@@ -78,30 +75,58 @@ require(['jquery','widget/utils'], function ($,Utils) {
         });
         $('#header').find('li').eq(3).addClass('active');
 
-    }else if(docName=='orderSuccess'){
+    }else if(docName=='ordersuccess'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
         $('#order-success-pay').click(function (){
         	$('#alipaysubmit').submit();
         });
+        $('#check-order-lists').click(function(){
+        	window.location.href = rootUrl + '/order/orderlist.html';
+        });
+        $('#order-success-change-order').click(function(){
+        	window.location.href = rootUrl + '/order/orderlist.html';
+        });
+        
     }else if(docName=='subscribe'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
-        require(['include/subscribePage'], function (SubscribePage) {
+        require(['include/subscribe'], function (Subscribe) {
         });
-    }else if(docName=='checkOrder'){
+    }else if(docName=='orderlist'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
-        require(['include/checkOrderPage'], function (checkOrderPage) {
+        require(['include/orderList'], function (OrderList) {
         });
-    }else if(docName=='selectModel'){
+    }else if(docName=='choicecar'){
         $('#header').find('li').each(function(){
             $(this).removeClass('active');
         });
-        require(['include/selectModelPage'], function (SelectModelPage) {
+        require(['include/choiceCar'], function (ChoiceCar) {
+        });
+    }else if(docName=='question'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
+    }else if(docName=='contact'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
+    }else if(docName=='store'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
+        require(['include/store'], function (Store) {
+        });
+    }else if(docName=='paysuccess'){
+        $('#header').find('li').each(function(){
+            $(this).removeClass('active');
+        });
+        $('#pay-success-btn').click(function(){
+            window.location.href = rootUrl + '/order/orderlist.html';
         });
     }
 });
