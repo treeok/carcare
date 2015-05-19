@@ -5,7 +5,9 @@
  * Created by claire on 2015/5/11.
  */
 define(['jquery', 'widget/utils'], function ($, Utils) {
-
+    $('#header').find('li').each(function(){
+        $(this).removeClass('active');
+    });
     buildSelect(1, 0, 'province', function () {
         $('#province-store').val(data.provinceId);
         var val1 = $('#province-store').val();

@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SinglePage, Utils, Dialog) {
+define(['widget/singlePage', 'widget/utils', 'widget/dialog', 'widget/alert'], function (SinglePage, Utils, Dialog, Alert) {
     var body = '<div id="orderInfo" class="form-container">\
         <div class="orderInfo-group" style="margin-bottom: 10px;">\
             <div class="orderInfo-title">收货地址</div>\
@@ -210,11 +210,11 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                         Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
                                             data = JSON.parse(data);
                                             if (data.errFlag == 0) {
-                                                alert('地址添加成功');
+                                                new Alert('地址添加成功');
                                                 getAddressList();
                                                 newDialog._close();
                                             } else {
-                                                alert('地址添加错误');
+                                                new Alert('地址添加错误');
                                             }
 
                                         });
@@ -319,11 +319,11 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                             Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
                                                 data = JSON.parse(data);
                                                 if (data.errFlag == 0) {
-                                                    alert('地址添加成功');
+                                                    new Alert('地址添加成功');
                                                     getAddressList();
                                                     newDialog._close();
                                                 } else {
-                                                    alert('地址添加错误');
+                                                    new Alert('地址添加错误');
                                                 }
 
                                             });
@@ -343,7 +343,7 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                             Utils.ajaxJson(rootUrl + '/address/delete', {id: id}, function (data) {
                                 data = JSON.parse(data);
                                 if (data.errFlag == 0) {
-                                    alert('删除成功');
+                                    new Alert('删除成功');
                                     getAddressList();
                                 }
                             });
@@ -365,7 +365,7 @@ define(['widget/singlePage', 'widget/utils', 'widget/dialog'], function (SingleP
                                 if (data.errFlag == 0) {
                                     window.location.href = rootUrl + '/order/orderSuccess.html?code=' + data.errMsg;
                                 } else if (data.errFlag == skuId) {
-                                    alert(库存不足);
+                                    new Alert(库存不足);
                                 }
                             });
                         });

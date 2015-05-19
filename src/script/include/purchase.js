@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
+define(['widget/singlePage', 'widget/utils','widget/alert'], function (SinglePage, Utils ,Alert) {
 
     var body = '<div id="purchase" class="form-container"><div id="purchase_body" style="margin: 15px 20px 15px;"></div>\
               <div style="margin: 15px 35px 15px;"><button id="purchase_btn" type="button" class="btn btn-primary">下一步</button></div></div>';
@@ -48,9 +48,9 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                  
                                 $('#purchase_btn').click(function(){
                                 	if(skuIdVal == undefined){
-                                		alert('请选择版本');
+                                        new Alert('请选择版本');
                                 	}else{
-                                		 window.location.href = 'orderInfo.html?skuId='+skuIdVal+'&quantity=1';
+                                		 window.location.href = 'orderinfo.html?skuId='+skuIdVal+'&quantity=1';
                                 	}
                          
                                 });

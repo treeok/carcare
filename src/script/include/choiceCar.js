@@ -2,7 +2,7 @@
  * Created by NCGZ-DZ- on 2015/5/12.
  */
 
-define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
+define(['widget/dialog', 'widget/utils','widget/alert','widget/confirm'], function (Dialog, Utils ,Alert,Confirm) {
     var body1 = '<div id="selectModelLists"></div>';
 
     var title1 = '<div id="selectModelTitle"><span>已选车型：</span><span class="select-brand"></span></div>';
@@ -16,8 +16,8 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
         <div id="confirm-models"></div><hr></div>\
         <div><h4 style="font-weight: bold;">告知：</h4>\
         <div style="margin-bottom: 50px;"><p>为保证能正常使用车挣盒子，请车型暂时不适配的车主不要选择。</p><p>静待后续车挣通知。否则由此引起车挣无法使用，我们概不负责。</p></div></div>\
-        <div style="margin: auto;"><button id="confirm-models-ok" type="button" class="btn btn-primary btn-lg">确认</button>\
-        <button id="confirm-models-cancel" type="button" class="btn btn-default btn-lg">取消</button>\
+        <div style="margin: auto;"><button id="confirm-models-ok" type="button" class="btn btn-primary btn-lg" style="margin-left: 120px;">确认</button>\
+        <button id="confirm-models-cancel" type="button" class="btn btn-default btn-lg"  style="margin-left: 20px;">取消</button>\
         </div></div>';
 
     var title3 = '<p style="font-weight: 700;font-size: 16px;font-family: 微软雅黑;color: #333;text-align: left;margin-top: -15px;">车型确认：</p>';
@@ -52,12 +52,9 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                     });
                 }
             });
-            
             callback();
         }
     });
-
-    
 
     function callback(){
         $('#select-brand-lists').find('.select-brand-list').each(function(){
@@ -111,11 +108,9 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                     container: $('header'),
                     body: body2,
                     customTitle:title2,
-                    width: 860,
+                    width: 870,
                     afterRender: function () {
-
                         $('#selectStyleTitle').find('.select-brand').text(brandName);
-
                         $('#selectStyleTitle').find('.select-model').text(modelName);
 
                         Utils.ajaxJson(rootUrl+'/suit/suitCarStyle', {modelId:modelId}, function (data) {
@@ -146,31 +141,29 @@ define(['widget/dialog', 'widget/utils'], function (Dialog, Utils) {
                                 });
                             }
                         });
-
                     }
                 });
             });
         });
-
     }
 
     $('#select-model-next').click(function(){
         if(!$('#select-model-details').hasClass('active')){
-            alert('请选择车型');
+            new Alert('请选择车型');
         }else{
             var newDialog3 = new Dialog({
                 container: $('header'),
                 body: body3,
                 title: title3,
-                width: 700,
+                width: 500,
                 afterRender: function () {
                     $('#confirm-models').text($('#select-model-details').text()).attr('data-styleId',$('#select-model-details').attr('data-styleId'));
                     $('#confirm-models-ok').click(function(){
-                    	var styleId = $('#confirm-models').attr('data-styleId');
-                    	window.location.href = rootUrl + '/purchase.html?styleId='+styleId;
+                        var styleId = $('#confirm-models').attr('data-styleId');
+                        window.location.href = rootUrl + '/purchase.html?styleId='+styleId;
                     });
                     $('#confirm-models-cancel').click(function(){
-                    	newDialog3._close();
+                        newDialog3._close();
                     });
                 }
             });

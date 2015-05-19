@@ -1,12 +1,12 @@
 /**
  * Created by Claire on 2015/4/27.
  */
-define(['jquery'],function($){
+define(function(){
     var index = 0;
     var _html = '<div id="singlePage_<%=index%>" class="single-page">\
      <div class="container">\
      <form action="#" role="form" class="form-<%=id%> form-horizontal"  style="padding: 0 15px;">\
-        <div class="form-signin-heading text-left"><img src="img/tip.png"><span><%=title%></span></div>\
+        <div class="form-signin-heading text-left"><span class="glyphicon glyphicon-info-sign" style="color: #098bc9;font-size:16px;"></span><span><%=title%></span></div>\
         <div style="padding:40px <%=(width/4)%>px"><%=body%></div>\
 	 </form>\
      </div></div>';

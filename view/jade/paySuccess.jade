@@ -10,7 +10,14 @@ html
       include include/loads.jade
    body
       include include/header.jade
-      .container(style="margin-top:136px;")
-         h2 付款成功！！！
-         small 具体页面内容等待设计
+      .container(style="margin-top:156px;margin-bottom:80px;")
+         .row(style="border:1px solid #acacac;")
+            div(style="margin:30px;margin-left:60px;")
+               img(src="img/ok.png")
+               span(style="margin-left:15px;font-size:24px;") 您已经成功付款
+            div(style="margin:30px;margin-left:60px;")
+               p(style="margin-left:15px;font-size:18px;") 订单编号：
+               p(style="margin-left:15px;font-size:18px;") 付款金额：
+            div(style="margin:30px;margin-left:60px;")
+               button#pay-success-btn(type="button" class="btn btn-link") 查看订单
       include include/footer.jade

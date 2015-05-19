@@ -1,9 +1,9 @@
-var rootUrl = 'http://10.8.6.127:8080/carcare-web-homesite';
+var rootUrl = 'http://10.8.6.120:8888/carcare-web-homesite';
 var static_domain = 'http://localhost:63342/carcare/public';
 require.config({
-    baseUrl: static_domain+'/script',
+    baseUrl: static_domain + '/script',
     paths: {
-        jquery: 'jquery-1.11.1'
+        jquery: 'jquery.min'
     }
 });
 
@@ -19,114 +19,95 @@ var mstmpl = function (str, data) {
     return _inner(str, data);
 };
 
-require(['jquery','widget/utils'], function ($,Utils) {
-    $('#offical-wechart').mouseover(function(){
+$(function () {
+    $('#offical-wechart').mouseover(function () {
         $('#offical-wechart-code').show();
-    }).mouseleave(function(){
+    }).mouseleave(function () {
         $('#offical-wechart-code').hide();
     });
     var urlArray = document.URL.split('/'),
-        docName = urlArray[urlArray.length-1].split('.')[0];
+        docName = urlArray[urlArray.length - 1].split('.')[0];
 
-    if(docName=='login'||docName=='prelogin'){
+    //login
+    if (docName == 'login') {
         require(['include/login'], function (Login) {
         });
-    }else if(docName=='register'){
+    }
+    else if (docName == 'register') {
         require(['include/register'], function (Register) {
         });
-    }else if(docName=='resetpwd'){
+    }
+    else if (docName == 'resetpwd') {
         require(['include/resetPwd'], function (ResetPwd) {
         });
-    }else if(docName=='orderinfo'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/orderInfo'], function (OrderInfo) {
-        });
-    }else if(docName=='purchase'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/purchase'], function (Purchase) {
-        });
-    }else if(docName=='index'||docName=='loginout'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        $('#header').find('li:first').addClass('active');
+    } else if (docName == 'index' || docName == 'loginout') {
+        menuDisplay(0);
         require(['include/index'], function (Index) {
         });
-    } else if(docName=='carlist'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        $('#header').find('li').eq(1).addClass('active');
+    } else if (docName == 'carlist') {
+        menuDisplay(1);
         require(['include/carlist'], function (Carlist) {
         });
-    }else if(docName=='install'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        $('#header').find('li').eq(2).addClass('active');
+    } else if (docName == 'install') {
+        menuDisplay(2);
 
-    }else if(docName=='app'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        $('#header').find('li').eq(3).addClass('active');
+    } else if (docName == 'app') {
+        menuDisplay(3);
 
-    }else if(docName=='ordersuccess'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
+    } else if (docName == 'orderinfo') {
+        menuDisplay();
+        require(['include/orderInfo'], function (OrderInfo) {
         });
-        $('#order-success-pay').click(function (){
-        	$('#alipaysubmit').submit();
+    } else if (docName == 'purchase') {
+        menuDisplay();
+        require(['include/purchase'], function (Purchase) {
         });
-        $('#check-order-lists').click(function(){
-        	window.location.href = rootUrl + '/order/orderlist.html';
+    } else if (docName == 'ordersuccess') {
+        menuDisplay();
+        $('#order-success-pay').click(function () {
+            $('#alipaysubmit').submit();
         });
-        $('#order-success-change-order').click(function(){
-        	window.location.href = rootUrl + '/order/orderlist.html';
-        });
-        
-    }else if(docName=='subscribe'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/subscribe'], function (Subscribe) {
-        });
-    }else if(docName=='orderlist'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/orderList'], function (OrderList) {
-        });
-    }else if(docName=='choicecar'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/choiceCar'], function (ChoiceCar) {
-        });
-    }else if(docName=='question'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-    }else if(docName=='contact'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-    }else if(docName=='store'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        require(['include/store'], function (Store) {
-        });
-    }else if(docName=='paysuccess'){
-        $('#header').find('li').each(function(){
-            $(this).removeClass('active');
-        });
-        $('#pay-success-btn').click(function(){
+        $('#check-order-lists').click(function () {
             window.location.href = rootUrl + '/order/orderlist.html';
         });
+        $('#order-success-change-order').click(function () {
+            window.location.href = rootUrl + '/order/orderlist.html';
+        });
+
+    } else if (docName == 'subscribe') {
+        menuDisplay();
+        require(['include/subscribe'], function (Subscribe) {
+        });
+    } else if (docName == 'orderlist') {
+        menuDisplay();
+        require(['include/orderList'], function (OrderList) {
+        });
+    } else if (docName == 'choicecar') {
+        menuDisplay();
+        require(['include/choiceCar'], function (ChoiceCar) {
+        });
+    } else if (docName == 'paysuccess') {
+        menuDisplay();
+        $('#pay-success-btn').click(function () {
+            window.location.href = rootUrl + '/order/orderlist.html';
+        });
+    } else if (docName == 'question') {
+        menuDisplay();
+    } else if (docName == 'contact') {
+        menuDisplay();
+    } else if (docName == 'store') {
+        menuDisplay();
+        require(['include/store'], function (Store) {
+        });
+    }
+
+    function menuDisplay(num) {
+        var header = $('#header');
+        header.find('li').each(function () {
+            $(this).removeClass('active');
+        });
+        if (num != undefined) {
+            header.find('li').eq(num).addClass('active');
+        }
     }
 });

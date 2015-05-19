@@ -9,36 +9,47 @@ html
       script(src="http://api.map.baidu.com/api?v=2.0&ak=DzKqDCfgIsiIEm3rYt5YQIMF")
    body
       include include/header.jade
-      .container(style="margin-top:136px;margin-bottom:40px;")
+      .container(style="margin-top:106px;margin-bottom:40px;")
          .row
-            select#province-store.store-select
-            select#city-store.store-select
-            select#county-store.store-select
-            button#search-store(type="button" class="btn btn-primary") 查询
-         .row
-            .col-md-3(style="border:1px solid #efefef;padding:5px 15px 45px;height:800px;overflow-y:auto;")
+            .col-md-12(style="border: 1px solid #DADADA;")
+               label(style="margin-left:30px;font-weight:normal;") 省：
+               select#province-store.store-select
+               label(style="margin-left:30px;font-weight:normal;") 市：
+               select#city-store.store-select
+               label(style="margin-left:30px;font-weight:normal;") 区：
+               select#county-store.store-select
+               button#search-store(type="button" class="btn btn-primary") 查询
+         .row(style="margin-top:15px;")
+            .col-md-5(style="height:700px;overflow-y:auto;padding:0;")
+               div(style="height: 27px;border: 1px solid #ddd;background-color: #fbfbfb;box-shadow: 1px 1px 1px #e5e5e5;line-height:27px;font-size:12px;font-weight:bold;") 车挣门店地址详情
                .media
                    .media-left
                       a(href="#")
-                      | 1
+                        img(src="img/store-test.png")
                    .media-body
-                      h4.media-heading 北城特许TD专营厅销售点
-                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+                      h4(style="color: #36c;font-size: 14px;").media-heading 北城特许TD专营厅销售点
+                      p(style="font-size: 12px;") 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+                      p(style="font-size: 12px;") 手机号码：***********
+               hr
                .media
                    .media-left
                       a(href="#")
-                      | 2
+                         img(src="img/store-test.png")
                    .media-body
-                      h4.media-heading 北城特许TD专营厅销售点
-                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+                      h4(style="color: #36c;font-size: 14px;").media-heading 北城特许TD专营厅销售点
+                      p(style="font-size: 12px;") 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+                      p(style="font-size: 12px;") 手机号码：***********
+               hr
                .media
                    .media-left
                       a(href="#")
-                      | 3
+                         img(src="img/store-test.png")
                    .media-body
-                      h4.media-heading 北城特许TD专营厅销售点
-                      p 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
-            .col-md-9
+                      h4(style="color: #36c;font-size: 14px;").media-heading 北城特许TD专营厅销售点
+                      p(style="font-size: 12px;") 合肥市长丰县双墩镇北城世纪城移动北城特许TD专营店
+                      p(style="font-size: 12px;") 手机号码：***********
+               hr
+            .col-md-7
                #allmap2
       include include/footer.jade
-      script(src="./script/myMap.js")
+      script(src="./script/include/myMap.js")

@@ -6,7 +6,7 @@ html
       meta(name="viewport", content="width=device-width, initial-scale=1")
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       include include/loads.jade
-   body(onkeydown="on_return();")
+   body
       header#top.navbar.navbar-static-top.bs-docs-nav(role="banner",style="height:200px;")
          .container
             .navbar-header
@@ -31,7 +31,8 @@ html
                         input(id="login_login_psd" type="password" style="width:230px;height:41px;border: 0;background:url('img/psd.png') no-repeat;text-indent:42px;background-color:#fff;")
                         small.tips-container.text-danger(style="display: none;") *密码不正确
                         small.tips-container.text-danger(style="display: none;") *密码不能为空
-                     button(id="login_forgetPsd_btn" type="button" class="btn btn-link pull-right" style="color:#fff;margin-right:30px;") 忘记登录密码？
+                     div(style="margin:5px 30px 0;")
+                        button(id="login_forgetPsd_btn" type="button" class="btn btn-link" style="position:relative;left:115px;color:#fff;") 忘记登录密码？
                      div(style="margin:5px 30px;")
                         button(id="login_login_btn" type="button" class="btn btn-primary btn-lg btn-block") 登录
                      button(id="login_register_btn" type="button" class="btn btn-link pull-right" style="color:#fff;margin-right:30px;") 马上注册
@@ -41,7 +42,7 @@ html
             .row.text-center
                span(style="margin:15px 15px;") 关于车挣
                span(style="margin:15px 15px;")
-                  a(href="install.html") 常见问题
+                  a(href="question.html") 常见问题
                span(style="margin:15px 15px;") 客服热线：400-034-5858
             .row.text-center
                small CopyRight &copy; 2013-2015 CHEZHENG Corporation  ,All Right Reserved

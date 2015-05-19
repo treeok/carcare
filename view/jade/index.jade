@@ -23,11 +23,12 @@ html
             .item
                img(src="img/surrender.png", alt="反保费")
                .carousel-caption
-                  #index-video
-                     button#index-video-btn(type="button" class="btn btn-primary" data-toggle="modal" data-target="#videoModal") 查看视频
             .item
                img(src="img/welfare.png", alt="车挣福利")
                .carousel-caption
+                  #index-video
+                     a(href="javascript:void(0);")
+                        span.glyphicon.glyphicon-play-circle(data-toggle="modal" data-target="#videoModal" style="font-size:40px;")
          // Controls
          a.left.carousel-control(href="#carousel-example-generic", role="button", data-slide="prev")
             span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
@@ -78,7 +79,7 @@ html
          .modal-dialog(style="width:900px;")
             .modal-header
                button.close(type="button", data-dismiss="modal", aria-label="Close")
-                  span(aria-hidden="true" class="glyphicon glyphicon-remove-circle" style="color:#14a1e0;font-weight:bold;")
+                  span(aria-hidden="true" class="glyphicon glyphicon-remove" style="color:#ccc;font-weight:bold;")
             .modal-body
                div(style="height:500px;margin:auto;")
                   script(src="http://api.video.taobao.com//video/getPlayerJS")

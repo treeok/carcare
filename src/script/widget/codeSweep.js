@@ -2,7 +2,7 @@
  * Created by claire on 2015/4/29.
  */
 
-define(['jquery'],function($){
+define(function(){
     var _code  = function(opt){
         opt = opt||{};
         if(!opt.iosUrl){

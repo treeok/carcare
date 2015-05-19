@@ -20,7 +20,7 @@ gulp.task('clean', function () {
 
 //样式
 gulp.task('css', function () {
-    return gulp.src(['./src/**/*.css', './src/*.css'])
+    return gulp.src(['./src/**/*.css', './src/*.css', '!./src/css/bootstrap.min.css'])
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
         .pipe(gulp.dest('./public/'))
         .pipe(concat('carcare.css'))
@@ -32,6 +32,11 @@ gulp.task('css', function () {
         .pipe(livereload());
 });
 
+gulp.task('btcss', function () {
+    return gulp.src(['./src/css/bootstrap.min.css'])
+        .pipe(gulp.dest('./public/dist/css'))
+        .pipe(gulp.dest('./public/css'));
+});
 gulp.task('js', function () {
     return gulp.src(['./src/**/*.js', './src/*.js'])
         .pipe(gulp.dest('./public/'))
@@ -54,7 +59,13 @@ gulp.task('img', function () {
         .pipe(gulp.dest('./public/dist'));
 });
 
-gulp.task('jade2html',['css','js','img'], function () {
+gulp.task('fonts', function () {
+    return gulp.src(['./src/fonts/*.eot','./src/fonts/*.svg','./src/fonts/*.ttf','./src/fonts/*.woff'])
+        .pipe(gulp.dest('./public/fonts'))
+        .pipe(gulp.dest('./public/dist/fonts'));
+});
+
+gulp.task('jade2html',['css','js','img','fonts','btcss'], function () {
     return gulp.src(['./view/jade/*.jade'])
         .pipe(jade({pretty:true}))
         .pipe(gulp.dest('./public'))

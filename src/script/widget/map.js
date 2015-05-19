@@ -13,7 +13,7 @@ var marker2 = new BMap.Marker(new BMap.Point(121.446517, 31.299467)); // 创建�
 map2.addOverlay(marker2);
 map2.enableScrollWheelZoom(true);*/
 
-define(['jquery'],function($){
+define(function(){
     var _carcareMap = function(opt){
         opt = opt||{};
         this.opt = opt;

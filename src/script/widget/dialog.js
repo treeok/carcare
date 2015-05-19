@@ -1,7 +1,7 @@
 /**
  * Created by claire 2015/4/15.
  */
-define(['jquery'],function($){
+define(function(){
     var zIndex = 2000;
     var index = 0;
     var jqWIN = $(window);
@@ -12,14 +12,14 @@ define(['jquery'],function($){
         <% } else { %>\
         <%=customTitle%> \
         <% } %>\
-        <em class="close-ico" id="close_<%=index%>"><img src="<%=static_domain%>/img/dlg-close.png"></em>\
+        <em class="close-ico" id="close_<%=index%>"><span class="glyphicon glyphicon-remove" style="font-size:18px;color:#ccc;"></span></em>\
       </div>\
       <div class="dialog-con" style="<%=textStyle%>">\
         <form action="">\
-		   <p><%=body%></p>\
+		   <div><%=body%></div>\
 			<%if(!bottom) {%>\
 			<% } else {%>\
-				<%=bottom%>\
+			<div><%=bottom%></div>\
 			<% } %>\
 		</form>\
       </div>\
@@ -38,9 +38,10 @@ define(['jquery'],function($){
             titleStyle:opt.titleStyle,
             customTitle:opt.customTitle,
             textStyle:opt.textStyle,
-            width:opt.width||'400',
+            width:opt.width,
             afterRender:opt.afterRender
         });
+        this._index = _index;
         $('body').append(html);
         this.el = $('#dialog_'+_index);
 
@@ -76,7 +77,7 @@ define(['jquery'],function($){
         },
         _reposition: function () {
             this.el.css({
-                top: ((document.body.scrollHeight - document.body.scrollTop) - this.el.height()) / 2 + 136,
+                top: (jqWIN.height() - this.el.height()) / 2 + (document.body.scrollTop + document.documentElement.scrollTop),
                 left: (jqWIN.width() - this.el.width()) / 2
             });
         },

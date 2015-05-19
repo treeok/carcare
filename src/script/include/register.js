@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
+define(['widget/singlePage','widget/utils','widget/alert'],function(SinglePage,Utils,Alert){
     var body = '<div id="register" class="form-container">\
         <div class="form-group">\
             <label for="register_id" class="col-sm-2 control-label">手机号</label>\
@@ -187,7 +187,7 @@ define(['widget/singlePage','widget/utils'],function(SinglePage,Utils){
                                 data:{"tel":userNameCon.val()},
                                 success:function(data){
                                     if(data.errFlag==0){
-                                        alert(data.errMsg);
+                                       new Alert(data.errMsg);
                                     }
                                 }
                             });

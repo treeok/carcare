@@ -4,7 +4,7 @@
 /**
  * Created by claire 2015/4/15.
  */
-define(['jquery'],function($){
+define(function(){
 
     var contentButton = [];
     var contentTop = [];

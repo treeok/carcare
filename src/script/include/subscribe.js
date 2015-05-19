@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/5/12.
  */
-define(['jquery','widget/utils','widget/dialog'],function($,Utils,Dialog){
+define(['jquery','widget/utils','widget/dialog','widget/alert','widget/confirm'],function($,Utils,Dialog,Alert,Confirm){
     var body = '<div id="subscribeDlgs" class="form-container">\
         <div class="subscribe-info">\
            <h4>车型信息</h4>\
@@ -90,23 +90,24 @@ define(['jquery','widget/utils','widget/dialog'],function($,Utils,Dialog){
                     newDialog._close();
                 });
                 $('#subscribeDlgs-ok').click(function(){
-                    Utils.ajaxJson(rootUrl+'/subscribe/doSubscribe',params,function(data){
-                        data = JSON.parse(data);
-                        if(data.errFlag == 0){
-                            alert('已经预约');
-                            newDialog._close();
-                        }else if(data.errFlag == 1){
-                            alert('预约成功！');
-                            newDialog._close();
-                        }else if(data.errFlag == -2){
-                            $(this).next().find('small:last').show();
-                            return false;
-                        }
+                    new Confirm('请确认预约信息',function(){
+                        Utils.ajaxJson(rootUrl+'/subscribe/doSubscribe',params,function(data){
+                            data = JSON.parse(data);
+                            if(data.errFlag == 0){
+                                new Alert('已经预约');
+                                newDialog._close();
+                            }else if(data.errFlag == 1){
+                                new Alert('预约成功！');
+                                newDialog._close();
+                            }else if(data.errFlag == -2){
+                                $(this).next().find('small:last').show();
+                                return false;
+                            }
+                        });
                     });
                 });
             }
         });
-
 
     });
 

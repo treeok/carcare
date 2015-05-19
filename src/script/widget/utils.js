@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/22.
  */
-define(['jquery'],function($){
+define(function(){
     var utils = {
         ajaxGet:function(url,param,cb){
         if(typeof param !== 'object'){
@@ -57,6 +57,50 @@ define(['jquery'],function($){
                 + cookieName.length, cookieEnd));
             }
             return cookieValue;
+        },
+        dateFormat:function(date){
+            var day = new Date(date);
+            var Year = day.getFullYear();
+            var Month = day.getMonth()+1;
+            var Day = day.getDate();
+            var Hour = day.getHours();
+            var Minute = day.getMinutes();
+            var Second = day.getSeconds();
+            var CurrentDate = "";
+            CurrentDate += Year + "-";
+            if (Month >= 10 )
+            {
+                CurrentDate += Month + "-";
+            }
+            else
+            {
+                CurrentDate += "0" + Month + "-";
+            }
+            if (Day >= 10 )
+            {
+                CurrentDate += Day ;
+            }
+            else
+            {
+                CurrentDate += "0" + Day ;
+            }
+            CurrentDate += '　' ;
+            if(Hour >= 10){
+                CurrentDate += Hour + ':';
+            }else{
+                CurrentDate += "0" + Hour + ':';
+            }
+            if(Minute >= 10){
+                CurrentDate += Minute + ':';
+            }else{
+                CurrentDate += "0" + Minute + ':';
+            }
+            if(Second >= 10){
+                CurrentDate += Second;
+            }else{
+                CurrentDate += "0" + Second;
+            }
+            return CurrentDate;
         }
     };
 

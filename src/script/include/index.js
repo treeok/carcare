@@ -8,7 +8,7 @@ require(['jquery', 'widget/utils'],function($,Utils){
             $('#index-entrance-btns').empty();
             $('#index-entrance-btns').append('<button id="index-entrance-purchase" type="button" class="btn btn-primary">立即购买</button>');
             $('#index-entrance-purchase').click(function(){
-                window.location.href = rootUrl+'/selectModel.html';
+                window.location.href = rootUrl+'/choicecar.html';
             });
         }else if(data.errFlag == 1){
             $('#index-entrance-btns').empty();
@@ -17,7 +17,13 @@ require(['jquery', 'widget/utils'],function($,Utils){
                 window.location.href = rootUrl+'/subscribe/subscribe.html'
             });
         }
-
+    });
+    $.ajax({
+        url:rootUrl+'/switchTime',
+        type:'post',
+        success:function(data){
+            alert(111);
+        }
     });
 
 });

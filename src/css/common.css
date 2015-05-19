@@ -17,7 +17,7 @@
     margin-bottom: 30px;
 }
 #allmap2{
-    height:800px;
+    height:700px;
     width:100%;
 }
 .installStep{
@@ -73,14 +73,13 @@
     margin-top: 60px;
 }
 .store-select{
-    width: 240px;
-    height: 40px;
-    background-color: #efefef;
-    margin: 15px;
+    width: 150px;
+    height: 30px;
+    margin: 15px 0;
 }
 #search-store{
-    padding: 9px 48px;
-    margin-left:15px;
+    padding: 5px 20px;
+    margin-left:30px;
 }
 #purchase_body a{
     display: inline-block;
@@ -92,6 +91,8 @@
     margin-right: 15px;
     margin-bottom: 15px;
     width: 300px;
+    height: 200px;
+    overflow-y: auto;
     cursor: pointer;
 }
 .check-order-list:hover{

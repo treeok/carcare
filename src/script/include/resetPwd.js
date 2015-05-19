@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/4/27.
  */
-define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
+define(['widget/singlePage', 'widget/utils','widget/alert'], function (SinglePage, Utils,Alert) {
     var body = '<div id="forgetPsd" class="form-container">\
         <div class="form-group">\
             <label for="forgetPsd_id" class="col-sm-2 control-label">手机号</label>\
@@ -174,9 +174,7 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                                     datatype:"html",
                                                     data:{"tel":userNameCon.val()},
                                                     success:function(data){
-                                                        if(data.errFlag==0){
-                                                            alert(data.errMsg);
-                                                        }
+
                                                     }
                                                 });
                                             }
@@ -242,7 +240,7 @@ define(['widget/singlePage', 'widget/utils'], function (SinglePage, Utils) {
                                                                                 }
                                                                             });
                                                                         }else{
-                                                                            alert('密码修改失败');
+                                                                          new Alert('密码修改失败');
                                                                         }
 
                                                                     });

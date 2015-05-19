@@ -1,7 +1,7 @@
 /**
  * Created by claire on 2015/5/11.
  */
-define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) {
+define(['jquery', 'widget/utils', 'widget/dialog','widget/alert','widget/confirm'], function ($, Utils, Dialog,Alert,Confirm) {
     var dlgBody = '<div id="address_dlg" class="form-container">\
         <div class="form-group">\
             <label for="address_dlg_id" class="col-sm-2 control-label">收货人</label>\
@@ -55,19 +55,17 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
             $(this).addClass('active');
             getOrderList(value, 5);
         } else if (value == '»') {
-            var that = this;
-            var val;
+            var that1 = this,val1;
             $('#order-pagination').find('li').each(function () {
                 if ($(this).hasClass('active')) {
-                    val = $(this).text();
-                    $(that).next().addClass('active');
+                    val1 = $(this).text();
+                    $(that1).next().addClass('active');
                 }
                 $(this).removeClass('active');
             });
-            getOrderList(Number(val) + 1, 5);
+            getOrderList(Number(val1) + 1, 5);
         } else {
-            var that = this;
-            var val;
+            var that = this,val;
             $('#order-pagination').find('li').each(function () {
                 if ($(this).hasClass('active')) {
                     val = $(this).text();
@@ -154,11 +152,11 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
                     Utils.ajaxJson(rootUrl + '/address/add', params, function (data) {
                         data = JSON.parse(data);
                         if (data.errFlag == 0) {
-                            alert('地址添加成功');
+                            new Alert('地址添加成功');
                             getAddressList();
                             newDialog1._close();
                         } else {
-                            alert('地址添加错误');
+                            new Alert('地址添加错误');
                         }
                     });
                 });
@@ -258,11 +256,11 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
                         Utils.ajaxJson(rootUrl + '/address/update', params, function (data) {
                             data = JSON.parse(data);
                             if (data.errFlag == 0) {
-                                alert('地址修改成功');
+                                new Alert('地址修改成功');
                                 getAddressList();
                                 newDialog._close();
                             } else {
-                                alert('地址修改失败');
+                                new Alert('地址修改失败');
                             }
 
                         });
@@ -279,13 +277,14 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
     //删除收货地址
     $('#check-order-address-lists').on('click', '.check-order-address-delete', function () {
         var id = $(this).parent().parent().attr('data-id');
-        console.log(id);
-        Utils.ajaxJson(rootUrl + '/address/delete', {id: id}, function (data) {
-            data = JSON.parse(data);
-            if (data.errFlag == 0) {
-                alert('删除成功');
-                getAddressList();
-            }
+        new Confirm('你确认要删除收货地址？',function(){
+            Utils.ajaxJson(rootUrl + '/address/delete', {id: id}, function (data) {
+                data = JSON.parse(data);
+                if (data.errFlag == 0) {
+                    new Alert('删除成功');
+                    getAddressList();
+                }
+            });
         });
     });
 
@@ -349,10 +348,8 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
             data = JSON.parse(data);
             $('#order-lists').empty();
             $('#order-pagination').empty();
-
             var html = '', pagehtml = '<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
             var allPage = data.totalPages;
-
             for (var j = 1; j < allPage + 1; j++) {
                 if (data.page == j) {
                     pagehtml += '<li class="active"><a href="#"><span>' + j + '</span></a></li>';
@@ -366,30 +363,61 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
 
             for (var i = 0; i < data.items.length; i++) {
                 var item = data.items[i];
-                html += '<div style="border:1px solid #daf3ff;margin-top:15px;" data-id="' + item.id + '">\
+                var newDate = Utils.dateFormat(item.order.createTime);
+                var statusName;
+                switch(item.order.status)
+                {
+                    case 1:
+                        if (parseInt(item.order.financialStatus) == 3) {
+                            statusName = '付款成功';
+                        }else{
+                            statusName = '等待付款';
+                        }
+                        break;
+                    case 3:
+                        statusName = '付款成功';
+                        break;
+                    case 6:
+                        statusName = '等待收货';
+                        break;
+                    case 10:
+                        statusName = '取消订单';
+                        break;
+                    case 15:
+                        statusName = '订单完成';
+                        break;
+                }
+
+                html += '<div class="order-list" style="border:1px solid #daf3ff;margin-top:15px;" data-id="' + item.id + '">\
                         <div style="background-color:#eaf8ff;padding:10px 0;">\
                         <span class="check-order-order-no" style="margin-left:30px;">订单号：' + item.order.code + '</span>\
-                        <span class="check-order-date" style="margin-left:15px;">' + item.order.createTime + '</span>\
-                        <span class="check-order-express pull-right" style="margin-right:30px;">' + item.order.logisticsProviderName + ':' + item.order.transCode + '</span>\
-                        </div>\
+                        <span class="check-order-date" style="margin-left:15px;">' + newDate + '</span>';
+                if(item.order.status == 6 ||item.order.status == 15){
+                    html += '<span class="check-order-express pull-right" style="margin-right:30px;">' + item.order.logisticsProviderName + ':' + item.order.transCode + '</span>';
+                }
+                html += '</div>\
                         <table class="text-center">\
                     <tbody><tr><td style="width:70%;">\
                     <div style="padding:15px;" class="media">\
-                    <div class="media-left"><a><img src="' + item.orderLines[0].upc + '"></a></div>\
+                    <div class="media-left"><a><img src="' + item.orderLines[0].productImage + '"></a></div>\
                     <div class="media-body">\
                     <h4 class="media-heading">' + item.orderLines[0].productName + '</h4>\
                     <p>￥' + item.orderLines[0].price + '元</p>\
                     </div>\
                     </div>\
                     </td>\
-                    <td style="width:10%;border-left:1px solid #daf3ff;"><span style="padding:15px;display；inline-block;">' + item.order.status + '</span></td>\
+                    <td style="width:10%;border-left:1px solid #daf3ff;"><span style="padding:15px;display；inline-block;">' + statusName + '</span></td>\
                     <td style="width:10%;border-left:1px solid #daf3ff;"><span style="padding:15px;display；inline-block;">￥' + item.order.total + '</span></td>\
                     <td style="width:10%;border-left:1px solid #daf3ff;">\
                     <div style="padding:15px;">';
-                if (item.order.financialStatus != 3) {
-                    html += '<button type="button" class="btn btn-primary check-order-order-pay">立即付款</button>';
+
+                if (parseInt(item.order.financialStatus) == 3) {
+                    html += '<button type="button" class="btn btn-primary">付款成功</button>';
+                }else{
+                    html += '<button type="button" class="btn btn-primary check-order-order-pay">立即付款</button>' +
+                    '<button type="button" class="btn btn-link btn-default check-order-order-cancel">取消订单</button>';
                 }
-                html += '<button type="button" class="btn btn-link btn-default check-order-order-cancel">取消订单</button></div></td></tr></tbody></table></div>';
+                html += '</div></td></tr></tbody></table></div>';
             }
 
             $('#order-lists').append(html);
@@ -399,6 +427,19 @@ define(['jquery', 'widget/utils', 'widget/dialog'], function ($, Utils, Dialog) 
             if (data.lastPage) {
                 $('#order-pagination').find('li:last').addClass('disabled');
             }
+            $('.check-order-order-cancel').each(function(){
+                $(this).click(function(){
+                    var code = $(this).parentsUntil('table').prev().find('.check-order-order-no').text().slice(4);
+                    new Confirm('你确定要取消订单吗？',function(){
+                        Utils.ajaxJson(rootUrl+'/order/order-break.html ',{code:code},function(data){
+                            data = JSON.parse(data);
+                            if(data.errFlag == 0){
+                                new Alert('订单取消成功！');
+                            }
+                        });
+                    })
+                });
+            });
         });
     }
 });
