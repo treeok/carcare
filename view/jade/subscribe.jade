@@ -8,55 +8,6 @@ html
       include include/loads.jade
    body
       include include/header.jade
-      .container(style="margin-top:136px;margin-bottom:40px;")
-         #subscribe(style="width:490px;margin:0 auto;")
-            h1(style="font-weight: normal;font-size: 20px;text-align: center;padding-bottom: 40px;") 预约登记
-            .formsub
-               ul(style="list-style-type: none;")
-                  li(style="position: relative;margin-bottom: 20px;")
-                    label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                      span.need(style="color: #FF4D05;") *
-                      | 车辆品牌
-                    select#brandSub(style="width: 350px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                  li(style="position: relative;margin-bottom: 20px;")
-                     label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                        span.need(style="color: #FF4D05;") *
-                        | 车系
-                     select#modelSub(style="width: 350px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                  li(style="position: relative;margin-bottom: 20px;")
-                     label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                        span.need(style="color: #FF4D05;") *
-                        | 车型
-                     select#styleSub(style="width: 350px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                  li(style="position: relative;margin-bottom: 20px;")
-                     label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                        span.need(style="color: #FF4D05;") *
-                        | 姓名
-                     input(type="text" name="name" id="name" class="inputxt" placeholder="请填写真实姓名" style="width: 350px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                     small(style="color: red;margin-left:82px;display:none;").tips-container *姓名不能为空
-                  li(style="position: relative;margin-bottom: 20px;")
-                     label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                        span.need(style="color: #FF4D05;") *
-                        | 验证码
-                     input(type="text" id="phoneCode" name="phoneCode" class="yztext inputxt" placeholder="验证码" style="width: 165px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                     img( src= rootUrl+"/code.html" id="phoneCodeButton" class="yzbtn" style="cursor: pointer;height: 50px;color: #fff;border: none;font-size: 14px;margin-left: 15px;")
-                     div
-                       small(style="color: red;margin-left:82px;display:none;").tips-container *验证码不能为空
-                       small(style="color: red;margin-left:82px;display:none;").tips-container *验证码不正确
-                  li(style="position: relative;margin-bottom: 20px;")
-                     label(style="font-size: 14px;font-weight:normal;width: 81px;display:inline-block;")
-                        span.need(style="color: #FF4D05;") *
-                        | 邮箱
-                     input(type="text" name="email" id="email" class="inputxt" placeholder="请输入您的常用邮箱" style="width: 350px;height: 50px;line-height: 50px;box-sizing: border-box;border: 1px solid #ececec;padding-left: 12px;font-size: 14px;")
-                     small(style="color: red;margin-left:82px;display:none;").tips-container *常用邮箱不能为空
-                     small(style="color: red;margin-left:82px;display:none;").tips-container *常用邮箱格式不正确
-               .action(style="padding-left: 125px;")
-                  button#registerButton.loginBtn(style="width: 350px;height: 50px;background: #2aac48;color: #fff;border: none;font-size: 20px;font-family: '微软雅黑'; cursor: pointer;outline: none;") 马上预约
-               div(style="line-height:20px;margin-top:20px;margin-left:40px;font-size:10px;")
-                 |*注：此页面仅预约登记，不提供上门安装。
-                 br
-                 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上海车主如需参与“免费预约，上门安装”活动，请到车挣微信公众账
-                 br
-                 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号“获得车挣-&gt;预约登记” 重新提交相关信息。
+     
       include include/footer.jade
 
